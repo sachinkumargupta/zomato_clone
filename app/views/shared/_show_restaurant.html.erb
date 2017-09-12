@@ -1,6 +1,4 @@
-<h1>Restaurant</h1>
-<hr>
-
+<div class="cover-photo"><%= image_tag @restaurant.cover_photo.url(:thumb)%></div>
 <p>
   <strong>Name</strong>
   <%= @restaurant.name %>
@@ -24,3 +22,5 @@
 <p>
   <%= link_to 'Get Diection', @restaurant.location_url, class: "btn btn-default" %>
 </p>
+<%= link_to 'Back', restaurants_path %>
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %>

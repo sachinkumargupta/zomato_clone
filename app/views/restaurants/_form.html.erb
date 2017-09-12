@@ -1,4 +1,5 @@
-<%= form_for @restaurant do |f| %>
+<% provide(:button_text, 'Submit') %>
+<%= form_for @restaurant, html: { multipart: true } do |f| %>
  
   <% if @restaurant.errors.any? %>
     <div id="error_explanation">
@@ -45,7 +46,12 @@
   </p>
 
   <p>
-    <%= f.submit %>
+    <%= f.label :cover_photo %>
+    <%= f.file_field :cover_photo, id: :restaurant_cover_photo %>
+  </p>
+
+  <p>
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
   </p>
  
 <% end %>

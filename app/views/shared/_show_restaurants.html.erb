@@ -1,4 +1,5 @@
 <% @restaurants.each do |restaurant| %>
+<%= image_tag restaurant.cover_photo.url(:medium), class: "img-responsive"%>
 <p>
   <strong>Name</strong>
   <%= restaurant.name %>
@@ -22,5 +23,8 @@
 <p>
   <%= link_to 'Get Diection', restaurant.location_url, class: "btn btn-default" %>
 </p>
+<%= link_to 'Show', restaurant_path(restaurant) %>
+<%= link_to 'Edit', edit_restaurant_path(restaurant) %>
+<%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?'} %>
 <hr>
 <% end %>
