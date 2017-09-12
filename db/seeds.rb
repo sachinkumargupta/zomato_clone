@@ -31,7 +31,7 @@ end
 
 
 # for Restaurant 
-10.times do |n|
+6.times do |n|
   name = Faker::Company.name
   address = "#{Faker::Address.street_address} #{Faker::Address.city} #{Faker::Address.state} #{Faker::Address.country}"
   lat = Faker::Address.latitude
@@ -44,5 +44,6 @@ end
                      address: address,
                      lat: lat,
                      long: long,
-                     location_url: location_url)
+                     location_url: location_url,
+                     restaurant_type: restaurant_type)
 end

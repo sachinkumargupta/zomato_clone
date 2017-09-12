@@ -1,5 +1,7 @@
 <% @restaurants.each do |restaurant| %>
-<%= image_tag restaurant.cover_photo.url(:medium), class: "img-responsive"%>
+<% if restaurant.cover_photo_file_name %>
+  <%= image_tag restaurant.cover_photo.url(:medium), class: "img-responsive"%>
+<% end %>
 <p>
   <strong>Name</strong>
   <%= restaurant.name %>

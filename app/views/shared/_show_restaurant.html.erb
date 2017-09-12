@@ -1,4 +1,6 @@
-<div class="cover-photo"><%= image_tag @restaurant.cover_photo.url(:thumb)%></div>
+<% if cover_photo_file_name %>
+  <div class="cover-photo"><%= image_tag @restaurant.cover_photo.url(:thumb)%></div>
+<% end %>
 <p>
   <strong>Name</strong>
   <%= @restaurant.name %>
