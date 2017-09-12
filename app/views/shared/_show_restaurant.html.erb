@@ -1,0 +1,26 @@
+<h1>Restaurant</h1>
+<hr>
+
+<p>
+  <strong>Name</strong>
+  <%= @restaurant.name %>
+</p>
+<p>
+  <strong>address</strong>
+  <%= @restaurant.address %>
+</p>
+<p>
+  <strong>Type</strong>
+  <%= @restaurant.restaurant_type %>
+</p>
+<p>
+  <strong>lat</strong>
+  <%= @restaurant.lat %>
+</p>
+<p>
+  <strong>long</strong>
+  <%= @restaurant.long %>
+</p>
+<p>
+  <%= link_to 'Get Diection', @restaurant.location_url, class: "btn btn-default" %>
+</p>
