@@ -35,7 +35,7 @@ end
   address = "#{Faker::Address.street_address} #{Faker::Address.city} #{Faker::Address.state} #{Faker::Address.country}"
   lat = Faker::Address.latitude
   long = Faker::Address.longitude
-  location_url = "https://www.google.co.in/maps/place/Barbeque+Nation/@22.582488,88.4091699,13z/data=!4m8!1m2!2m1!1sbarbequee!3m4!1s0x3a0275adc3ba1021:0xebcdcaa065bd0c8!8m2!3d22.568943!4d88.433181"
+  location_url = "https://www.google.com/maps/preview/@#{lat},#{long},15z"
   type = %w(Fast\ food Dining Barbeque Buffet Cafe Destination\ restaurant pub)
   restaurant_type = type[rand(0..6)]
   

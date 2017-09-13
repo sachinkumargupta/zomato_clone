@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="well clearfix">
+    <div class="col-sm-6">
+      <div id="map"></div>
+    </div>
+    <div class="col-sm-6">
+      <h4><%= @restaurant.name %></h4>
+      <p><strong>Address: </strong> <%= @restaurant.address %></p>
+      <%= link_to 'Direction', "#{@restaurant.location_url}", class: "btn btn-default", target: "_blank" %> 
+    </div
+  </div>
+</div>
+
+<script>
+function myMap() {
+  var lat = parseFloat("<%= @restaurant.lat %>")
+  var long = parseFloat("<%= @restaurant.long %>")
+  var myCenter = new google.maps.LatLng(lat,long);
+  var mapCanvas = document.getElementById("map");
+  var mapOptions = {center: myCenter, zoom: 15};
+  var map = new google.maps.Map(mapCanvas, mapOptions);
+  var marker = new google.maps.Marker({position:myCenter});
+  marker.setMap(map);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSKxReJgUO7vNqIHuHV1Br-65yk-qaNM&callback=myMap"></script>
