@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912094647) do
+ActiveRecord::Schema.define(version: 20170913095613) do
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 20170912094647) do
     t.string "cover_photo_content_type"
     t.integer "cover_photo_file_size"
     t.datetime "cover_photo_updated_at"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "comment"
+    t.boolean "approved", default: false
+    t.integer "user_id"
+    t.integer "restaurant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

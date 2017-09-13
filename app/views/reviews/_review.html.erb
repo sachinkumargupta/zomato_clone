@@ -1,0 +1,29 @@
+<% provide(:button_text, 'Submit') %>
+
+<% @restaurant.reviews.each do |review| %>
+  <p>
+    <strong>Rating:</strong>
+    <% data_score = review.rating %>
+    <% for i in 1..5 %>
+      <% if i<= data_score %>
+        <span class="glyphicon glyphicon-star"></span>
+      <% else %>
+        <span class="glyphicon glyphicon-star-empty"></span>
+      <% end %>
+    <% end %>
+  </p>
+ 
+  <p>
+    <strong>Review:</strong>
+    <%= review.comment %>
+  </p>
+  <p>
+    <strong>Approved?</strong>
+    <%= review.approved %>
+  </p>
+  <p>
+    <%= link_to 'Delete', [review.restaurant, review],
+                 method: :delete,
+                 data: { confirm: 'Are you sure?' } %>
+  </p>
+<% end %>

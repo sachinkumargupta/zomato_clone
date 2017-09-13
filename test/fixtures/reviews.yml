@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rating: 1
+  comment: MyText
+  approved: false
+  user: one
+  restaurant: one
+
+two:
+  rating: 1
+  comment: MyText
+  approved: false
+  user: two
+  restaurant: two

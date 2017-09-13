@@ -1,0 +1,32 @@
+<%= form_for([@restaurant, @restaurant.reviews.build]) do |f| %>
+  <p class="rating-form">
+    <%= f.label :rating %><br>
+    <%= f.number_field :rating, class: "rating-value", in: 1..5 %>
+      <span class="glyphicon glyphicon-star-empty" data-score="1"></span>
+      <span class="glyphicon glyphicon-star-empty" data-score="2"></span>
+      <span class="glyphicon glyphicon-star-empty" data-score="3"></span>
+      <span class="glyphicon glyphicon-star-empty" data-score="4"></span>
+      <span class="glyphicon glyphicon-star-empty" data-score="5"></span>
+  </p>
+
+  <p>
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<script>
+$(document).ready(function(){
+  $('.rating-form span').click(function(){
+    value = $(this).attr("data-score");
+    $(".rating-value").val(value);
+    $(this).siblings("span").removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
+    $(this).removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
+    $(this).prevUntil(".rating-value").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
+    $(this).removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
+  });
+});
+</script>
