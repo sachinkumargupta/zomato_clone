@@ -6,4 +6,5 @@ class Restaurant < ApplicationRecord
   validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\z/
 
   has_many :reviews, dependent: :destroy
+  has_many :images, dependent: :destroy
 end
