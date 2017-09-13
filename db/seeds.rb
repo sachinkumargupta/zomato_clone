@@ -6,20 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
 # for User 
-User.create!(name:  "Sachin Kumar",
+User.create!(name:  "Sachin Admin",
              email: "sachin1@gmail.com",
              password:              "sachin",
              password_confirmation: "sachin",
              admin: true)
 
-User.create!(name:  "Sachin",
+User.create!(name:  "Sachin User",
              email: "sachin2@gmail.com",
              password:              "password",
              password_confirmation: "password")
 
-99.times do |n|
+98.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -46,4 +45,25 @@ end
                      long: long,
                      location_url: location_url,
                      restaurant_type: restaurant_type)
+end
+
+
+# for reviews
+20.times do |n|
+  rating = rand(1..5)
+  comment = Faker::Movie.quote
+  user_id = rand(1..User.count)
+  restaurant_id = rand(1..Restaurant.count)
+  
+  if user_id == 1
+    approved = true
+  else
+    approved = false
+  end
+  
+  Review.create!( rating: rating, 
+                comment: comment,
+                approved: approved,
+                user_id: user_id,
+                restaurant_id: restaurant_id)
 end
