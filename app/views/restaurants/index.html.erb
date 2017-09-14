@@ -1,5 +1,31 @@
-<%= render 'shared/show_restaurants' %>
-
-<% if logged_in? %>
-  <%= link_to 'New Restaurant', new_restaurant_path %>
+<% @restaurants.each do |restaurant| %>
+<div class="well clearfix restaurant-list">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="">    
+        <% if restaurant.cover_photo_file_name %>
+          <%= link_to restaurant_path(restaurant) do %>
+          <%= image_tag restaurant.cover_photo.url(:medium), class: "img-responsive" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div> 
+    <div class="col-sm-8 restaurant-list-body">
+      <h3><strong><%= link_to restaurant.name, restaurant %></strong></h3>
+      <p>
+        <strong>Address: </strong>
+        <%= restaurant.address %>
+      </p>
+      <p>
+        <%= restaurant.restaurant_type %>
+      </p>
+      <div class="btn-group">
+        <% if logged_in? && current_user.admin? %>
+          <%= link_to 'Edit', edit_restaurant_path(restaurant), class: "btn btn-default btn-sm" %>
+          <%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-default btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>

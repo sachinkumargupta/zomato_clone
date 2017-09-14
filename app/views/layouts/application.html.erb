@@ -8,8 +8,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-
-
+  
   
   <%= render 'shared/header' %>
   <div class="container">
@@ -17,10 +16,7 @@
       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
     <% end %>
     <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
   </div>
-
-
 
 </body>
 </html>

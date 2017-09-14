@@ -15,9 +15,30 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-@import "custom.scss";
 @import "images.scss";
 @import "restaurants.scss";
 @import "reviews.scss";
 @import "sessions.scss";
 @import "users.scss";
+
+/*
+body {
+  background-color: #AA4847;
+}
+*/
+
+header {
+  margin-bottom: 90px;
+}
+
+@media (min-width: 768px) and (max-width: 991px ) { 
+  header {
+    font-size: 12px;
+  }
+}
+@media (min-width: 768px) {
+ .col-sm-2.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+  } 
+}
