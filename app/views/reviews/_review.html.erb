@@ -12,11 +12,18 @@
       <% end %>
     <% end %>
   </p>
- 
+  
+  <% user = User.find(review.user_id) %>
+  <p>
+    <strong>User:</strong>
+    <%= user.name %>
+  </p>
+
   <p>
     <strong>Review:</strong>
     <%= review.comment %>
   </p>
+
   <p>
     <strong>Approved?</strong>
     <%= review.approved %>
@@ -26,4 +33,5 @@
                  method: :delete,
                  data: { confirm: 'Are you sure?' } %>
   </p>
+  <hr>
 <% end %>

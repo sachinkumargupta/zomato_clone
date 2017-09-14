@@ -53,6 +53,7 @@ end
   rating = rand(1..5)
   comment = Faker::Movie.quote
   user_id = rand(1..User.count)
+  user = User.find(user_id)
   restaurant_id = rand(1..Restaurant.count)
   
   if user_id == 1
