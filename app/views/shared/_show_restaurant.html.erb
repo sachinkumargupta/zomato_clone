@@ -25,4 +25,6 @@
   <%= link_to 'Get Diection', @restaurant.location_url, class: "btn btn-default" %>
 </p>
 <%= link_to 'Back', restaurants_path %>
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
+<% if logged_in? && current_user.admin? %>
+  <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
+<% end %>

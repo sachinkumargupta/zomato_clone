@@ -8,13 +8,15 @@
         <% end %>
         <div class="image-category">
           <span class="label label-primary"><%= image.category %></span>
-        </div>      
-      <p>
-        <%= link_to 'Delete', [image.restaurant, image],
-                     method: :delete,
-                     data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-default" %>
-      </p>
-      </div>
-    <% end %>
+        </div>
+        <% if logged_in? %>    
+          <p>
+            <%= link_to 'Delete', [image.restaurant, image],
+                         method: :delete,
+                         data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-default" %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

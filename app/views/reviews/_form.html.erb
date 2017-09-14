@@ -1,23 +1,29 @@
-<h2>Add a Review:</h2>
-<%= form_for([@restaurant, @restaurant.reviews.build]) do |f| %>
-  <p class="rating-form">
-    <%= f.label :rating %><br>
-    <%= f.number_field :rating, class: "rating-value", in: 1..5 %>
-      <span class="glyphicon glyphicon-star-empty" data-score="1"></span>
-      <span class="glyphicon glyphicon-star-empty" data-score="2"></span>
-      <span class="glyphicon glyphicon-star-empty" data-score="3"></span>
-      <span class="glyphicon glyphicon-star-empty" data-score="4"></span>
-      <span class="glyphicon glyphicon-star-empty" data-score="5"></span>
-  </p>
+<% if logged_in? %>
+  <h2>Add a Review:</h2>
+  <%= form_for([@restaurant, @restaurant.reviews.build]) do |f| %>
+    <p class="rating-form">
+      <%= f.label :rating %><br>
+      <%= f.number_field :rating, class: "rating-value", in: 1..5 %>
+        <span class="glyphicon glyphicon-star-empty" data-score="1"></span>
+        <span class="glyphicon glyphicon-star-empty" data-score="2"></span>
+        <span class="glyphicon glyphicon-star-empty" data-score="3"></span>
+        <span class="glyphicon glyphicon-star-empty" data-score="4"></span>
+        <span class="glyphicon glyphicon-star-empty" data-score="5"></span>
+    </p>
 
-  <p>
-    <%= f.label :comment %><br>
-    <%= f.text_area :comment %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+    <p>
+      <%= f.label :comment %><br>
+      <%= f.text_area :comment %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+<% else %>
+  <h3>Login to add Reviews or Restaurant images</h3>
+  <%= link_to 'Login', login_path, class: "btn btn-primary" %>
 <% end %>
+
 
 <script>
 $(document).ready(function(){
