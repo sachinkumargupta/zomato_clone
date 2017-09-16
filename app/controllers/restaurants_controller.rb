@@ -8,6 +8,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @reviews = @restaurant.reviews.order("created_at DESC");
   end
 
   def new
@@ -42,6 +43,10 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
     redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.'    
+  end
+
+  def location
+    @restaurant = Restaurant.find(params[:id])
   end
 
   private

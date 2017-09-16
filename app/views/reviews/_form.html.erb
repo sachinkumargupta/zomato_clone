@@ -1,27 +1,28 @@
 <% if logged_in? %>
-  <h2>Add a Review:</h2>
-  <%= form_for([@restaurant, @restaurant.reviews.build]) do |f| %>
-    <p class="rating-form">
-      <%= f.label :rating %><br>
-      <%= f.number_field :rating, class: "rating-value", in: 1..5 %>
-        <span class="glyphicon glyphicon-star-empty" data-score="1"></span>
-        <span class="glyphicon glyphicon-star-empty" data-score="2"></span>
-        <span class="glyphicon glyphicon-star-empty" data-score="3"></span>
-        <span class="glyphicon glyphicon-star-empty" data-score="4"></span>
-        <span class="glyphicon glyphicon-star-empty" data-score="5"></span>
-    </p>
+  <h3 class="rating-form-title">Add a Review:</h3>
+  <div class="rating-form-body well">
+    <%= form_for([@restaurant, @restaurant.reviews.build]) do |f| %>
+      <div class="rating-form form-group">
+        <%= f.number_field :rating, class: "rating-value hidden", in: 1..5 %>
+          <span class="star glyphicon glyphicon-star-empty" data-score="1"></span>
+          <span class="star glyphicon glyphicon-star-empty" data-score="2"></span>
+          <span class="star glyphicon glyphicon-star-empty" data-score="3"></span>
+          <span class="star glyphicon glyphicon-star-empty" data-score="4"></span>
+          <span class="star glyphicon glyphicon-star-empty" data-score="5"></span>
+      </div>
 
-    <p>
-      <%= f.label :comment %><br>
-      <%= f.text_area :comment %>
-    </p>
-    <p>
-      <%= f.submit %>
-    </p>
-  <% end %>
-<% else %>
-  <h3>Login to add Reviews or Restaurant images</h3>
-  <%= link_to 'Login', login_path, class: "btn btn-primary" %>
+      <div class = "form-group">
+        <%= f.label :comment %><br>
+        <%= f.text_area :comment, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit %>
+      </div>
+    <% end %><hr>
+  </div>
+  <% else %>
+    <h5 class="alert alert-info">Login to add Reviews or Restaurant images</h5>
+    <%= link_to 'Login', login_path, class: "btn btn-primary" %>
 <% end %>
 
 
@@ -32,7 +33,7 @@ $(document).ready(function(){
     $(".rating-value").val(value);
     $(this).siblings("span").removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
     $(this).removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
-    $(this).prevUntil(".rating-value").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
+    $(this).prevAll(".star").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
     $(this).removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
   });
 });

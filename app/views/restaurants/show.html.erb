@@ -1,16 +1,41 @@
-<%= render 'shared/show_restaurant' %><hr>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <% if @restaurant.cover_photo_file_name %>
+          <div class="cover-photo"><%= image_tag @restaurant.cover_photo.url, class: "img-responsive" %></div>
+        <% end %>
+      </div>
+      <div class="col-sm-6">
+        <h3><strong><%= @restaurant.name %></strong></h3>
+        <p>
+          <strong>Address:</strong>
+          <%= @restaurant.address %>
+        </p>
+        <p><%= @restaurant.restaurant_type %></p>
+        
+        <div class="btn-group">
+          <% if logged_in? %>
+            <% if current_user.admin? %>
+              <%= link_to 'Edit', edit_restaurant_path(@restaurant), class: "btn btn-default btn-sm"%>
+              <%= link_to 'Destroy', @restaurant, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-default btn-sm" %>
+            <% end %>
+            <%= link_to 'Gallery', restaurant_images_path(@restaurant), class: "btn btn-default btn-sm"%>
+            <%= link_to 'Location', restaurant_location_path(@restaurant), class: "btn btn-default btn-sm"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
+    <br><br><br>
 
-<!-- For adding and showing restaurants reviews -->
-<%= render 'reviews/review'%><hr>
-<%= render 'reviews/form' %><hr>
-
-
-<!-- For adding and showing restaurants images -->
-<%= render 'images/index'%>
-<%= render 'images/form' %>
-
-
-<!-- For Google Location -->
-<%= render 'shared/location' %>
-
+    <div class="row">
+      <div class="col-sm-5">
+        <%= render 'reviews/form' %>
+      </div>
+      <div class="col-sm-5 col-sm-offset-1">
+        <%= render 'reviews/review' %>
+      </div>
+    </div>
+  </div>
+</div>

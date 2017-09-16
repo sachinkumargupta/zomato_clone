@@ -36,7 +36,7 @@ end
   lat = Faker::Address.latitude
   long = Faker::Address.longitude
   location_url = "https://www.google.com/maps/preview/@#{lat},#{long},15z"
-  type = %w(Fast\ food Dining Barbeque Buffet Cafe Destination\ restaurant pub)
+  type = %w(Fast\ food Dining Barbeque Buffet Cafe Destination\ restaurant Pub)
   restaurant_type = type[rand(0..6)]
   
   Restaurant.create!(name: name,

@@ -1,0 +1,29 @@
+<p><%= link_to 'Back', @restaurant, class: "btn btn-default" %></p>
+<% unless @restaurant.images.count == 0 %>
+  <div class="row">
+    <% @restaurant.images.each do |image| %>   
+      <div class="col-sm-4">
+        <%= image_tag image.photo.url(:medium), class: "img-responsive thumbnail" %>
+        <div class="image-category">
+          <span class="label label-primary"><%= image.category %></span>
+        </div>
+        <% if logged_in? && current_user.admin?%>    
+          <p class="destroy-button-image-index-page">
+            <%= link_to 'Delete', [image.restaurant, image],
+                         method: :delete,
+                         data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default" %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h5 class="alert alert-info">No Image present yet! Be the first one to add one!! </h5 style="background-color: : green;">
+<% end %>
+
+<br><br>
+
+<%= render 'images/form' %>
+
+
+<br><br><br><br><br><br>
