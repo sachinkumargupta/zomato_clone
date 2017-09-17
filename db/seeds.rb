@@ -69,6 +69,20 @@ end
   category = category_array[rand(0..3)]
   Image.create!( category: category,
                  restaurant_id: rand(1..Restaurant.count),
-                 photo: File.open("app/assets/images/images/#{n%7}.jpg")
-    )
+                 photo: File.open("app/assets/images/images/#{n%7}.jpg"))
+end
+
+
+# for Food Item
+food_item_array = ["Aloo baingan masala","Aloo gobi","Aloo ki tikki","Aloo matar","Aloo methi","Aloo shimla mirch","Amriti with rabdi","Amritsari fish","Amritsari kulcha","Biryani","Butter chicken","Chaat","Chana masala","Chapati","Chicken razala","Chicken Tikka","Chole bhature","Daal puri","Dum aloo","Gajar ka halwa","Jalebi","Kofta","Pani puri","Paratha","Samosa"]
+
+
+50.times do |n|
+  name = food_item_array[rand(0..24)]
+  price = rand(100..200).round(-1)
+
+  FoodItem.create!( name: name,
+                    price: rand(100..200).round(-1),
+                    restaurant_id: rand(1..Restaurant.count))
+   
 end

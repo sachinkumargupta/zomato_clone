@@ -15,6 +15,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@import "food_items.scss";
 @import "images.scss";
 @import "restaurants.scss";
 @import "reviews.scss";
@@ -24,7 +25,7 @@
 
 
 body {
-  min-height: 700px;
+  min-height: 750px;
 }
 
 header {

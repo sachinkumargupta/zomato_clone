@@ -1,0 +1,13 @@
+<div class="well col-sm-6 col-sm-offset-3">
+  <h3>Food Item</h3>
+  <table class="table table-responsive">
+    <tr>
+    <td><%= @food_item.name %></td>
+    <td>Rs. <%= @food_item.price %></td>
+    </tr>
+  </table>
+  <div class="btn-group">
+    <%= link_to 'Back', restaurant_food_items_path(@restaurant), class: "btn btn-default" %>
+    <%= link_to 'Edit', edit_restaurant_food_item_path(@restaurant, @food_item), class: "btn btn-default" %>  
+  </div>
+</div>

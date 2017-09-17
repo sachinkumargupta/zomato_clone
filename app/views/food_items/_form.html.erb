@@ -1,0 +1,29 @@
+<%= form_for([@restaurant, @food_item]) do |f| %>
+  
+  <% if @food_item.errors.any? %>
+    <div id="error_explanation" class="alert alert-warning">
+      <h4>
+        <%= pluralize(@food_item.errors.count, "error") %> prohibited
+        this food item from being saved:
+      </h4>
+      <div>
+        <% @food_item.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :price %><br>
+    <%= f.number_field :price, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <%= link_to 'Back', restaurant_food_items_path(@restaurant), class: "btn btn-default pull-right" %>
+  </div>
+<% end %>

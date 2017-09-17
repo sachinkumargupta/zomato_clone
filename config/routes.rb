@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :restaurants do  
     resources :reviews
     resources :images
+    resources :food_items
   end
 
   root "restaurants#index"

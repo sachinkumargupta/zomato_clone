@@ -19,6 +19,7 @@
             <% if current_user.admin? %>
               <%= link_to 'Edit', edit_restaurant_path(@restaurant), class: "btn btn-default btn-sm"%>
               <%= link_to 'Destroy', @restaurant, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-default btn-sm" %>
+              <%= link_to 'Add Food Item', restaurant_food_items_path(@restaurant), class: "btn btn-default btn-sm"%>
             <% end %>
             <%= link_to 'Gallery', restaurant_images_path(@restaurant), class: "btn btn-default btn-sm"%>
             <%= link_to 'Location', restaurant_location_path(@restaurant), class: "btn btn-default btn-sm"%>

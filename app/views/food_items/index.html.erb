@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h2>Item List</h2>
+
+    <table class="table table-responsive table-striped">
+      <tr>
+        <th><strong>Food Item</strong></th>
+        <th><strong>Price</strong></th>
+        <th colspan="3"></th>
+      </tr>
+      
+      <% @food_items.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.price %></td>
+          <td><%= link_to 'Show', [food.restaurant, food] %></td>
+          <td><%= link_to 'Edit', [:edit, food.restaurant, food] %></td>
+          <td><%= link_to 'Delete', [food.restaurant, food], method: :delete, data: {confirm: "Are you sure?"} %></td>
+        </tr>
+      <% end %>  
+    </table>
+
+    <%= link_to 'New Food Item', new_restaurant_food_item_path(@restaurant), class: "btn btn-primary" %>
+    <%= link_to 'Back to Restaurant', @restaurant, class: "btn btn-default pull-right" %>
+  </div>
+</div>
