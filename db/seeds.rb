@@ -13,21 +13,15 @@ User.create!(name:  "Sachin Admin",
              password_confirmation: "sachin",
              admin: true)
 
-User.create!(name:  "Sachin User",
-             email: "sachin2@gmail.com",
-             password:              "password",
-             password_confirmation: "password")
-
 98.times do |n|
   name  = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
+  email = "sachin#{n+2}@gmail.com"
   password = "password"
   User.create!(name:  name,
                email: email,
                password:              password,
                password_confirmation: password)
 end
-
 
 # for Restaurant 
 6.times do |n|
@@ -44,27 +38,37 @@ end
                      lat: lat,
                      long: long,
                      location_url: location_url,
-                     restaurant_type: restaurant_type)
+                     restaurant_type: restaurant_type,
+                     cover_photo: File.open("app/assets/images/restaurant/#{n+1}.jpg"))
 end
 
-
-# for reviews
-20.times do |n|
+# for Reviews
+30.times do |n|
   rating = rand(1..5)
   comment = Faker::Movie.quote
   user_id = rand(1..User.count)
   user = User.find(user_id)
   restaurant_id = rand(1..Restaurant.count)
   
-  if user_id == 1
+  if (user_id == 1 || n % 2 == 0) 
     approved = true
   else
     approved = false
   end
   
   Review.create!( rating: rating, 
-                comment: comment,
-                approved: approved,
-                user_id: user_id,
-                restaurant_id: restaurant_id)
+                  comment: comment,
+                  approved: approved,
+                  user_id: user_id,
+                  restaurant_id: restaurant_id)
+end
+
+# for Image model
+30.times do |n|
+  category_array = %w(Food Restaurant Menu Other)
+  category = category_array[rand(0..3)]
+  Image.create!( category: category,
+                 restaurant_id: rand(1..Restaurant.count),
+                 photo: File.open("app/assets/images/images/#{n%7}.jpg")
+    )
 end

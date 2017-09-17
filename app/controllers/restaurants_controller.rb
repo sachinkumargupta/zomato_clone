@@ -8,7 +8,11 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    @reviews = @restaurant.reviews.order("created_at DESC");
+    if logged_in? && current_user.admin?
+      @reviews = @restaurant.reviews.order("created_at DESC")
+    else
+      @reviews = @restaurant.reviews.order("created_at DESC").where(approved: true);
+    end
   end
 
   def new
