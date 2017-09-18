@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   
   def new
+    if logged_in?
+      flash[:info] = "You are already logged in"
+      redirect_to restaurants_path
+    end
   end
 
   def create

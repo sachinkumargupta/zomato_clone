@@ -12,7 +12,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    unless logged_in?
+      @user = User.new
+    else
+      flash[:info] = "You are already logged in."
+      redirect_to restaurants_path
+    end
   end
 
   def create
