@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "/restaurants/:id/location", to: 'restaurants#location', as: 'restaurant_location'
 
   resources :restaurants do  
-    resources :reviews, :images, :food_items
+    resources :reviews, :images, :food_items, :orders
   end
 
   root "restaurants#index"

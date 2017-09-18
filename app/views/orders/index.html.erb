@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h2>Food Order List</h2>
+
+    <table class="table table-responsive table-striped">
+      <tr>
+        <th><strong>Order Id</strong></th>
+        <th><strong>Delivery To</strong></th>
+        <th colspan="4"></th>
+      </tr>
+      
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.delivery_address %></td>
+          <td><%#= order.user_name %></td>
+          <td><%#= order.total %></td>
+          <td><%= link_to 'Show', [order.restaurant, order] %></td>
+          <td><%= link_to 'Delete', [order.restaurant, order], method: :delete, data: {confirm: "Are you sure?"} %></td>
+        </tr>
+      <% end %>  
+    </table>
+
+    <%= link_to 'Place Order', new_restaurant_order_path(@restaurant), class: "btn btn-primary" %>
+    <%= link_to 'Back to Restaurant', @restaurant, class: "btn btn-default pull-right" %>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="well col-sm-8 col-sm-offset-2">
+  <h3>Order Details</h3>
+  <table class="table table-stripted table-responsive">
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    <tr>
+    <td><%= @order.item_array %></td>
+    <td><%= @order.quantity_array %></td>
+    <td><%= @order.total %></td>
+    </tr>
+  </table>
+  <div class="additional-order-details">
+    <p><strong>Delivery Address:</strong> <%= @order.delivery_address %></p>
+    <p><strong>Total:</strong> <%#= @order.total %></p>
+  </div>
+  <div class="btn-group">
+    <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default" %> 
+  </div>
+</div>

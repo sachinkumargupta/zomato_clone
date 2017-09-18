@@ -74,15 +74,15 @@ end
 
 
 # for Food Item
-food_item_array = ["Aloo baingan masala","Aloo gobi","Aloo ki tikki","Aloo matar","Aloo methi","Aloo shimla mirch","Amriti with rabdi","Amritsari fish","Amritsari kulcha","Biryani","Butter chicken","Chaat","Chana masala","Chapati","Chicken razala","Chicken Tikka","Chole bhature","Daal puri","Dum aloo","Gajar ka halwa","Jalebi","Kofta","Pani puri","Paratha","Samosa"]
+#food_item_array = ["Aloo baingan masala","Aloo gobi","Aloo ki tikki","Aloo matar","Aloo methi","Aloo shimla mirch","Amriti with rabdi","Amritsari fish","Amritsari kulcha","Biryani","Butter chicken","Chaat","Chana masala","Chapati","Chicken razala","Chicken Tikka","Chole bhature","Daal puri","Dum aloo","Gajar ka halwa","Jalebi","Kofta","Pani puri","Paratha","Samosa"]
+food_item_array = ["Aloo gobi","Fish","Biryani","Chaat","Chana masala","Chapati","Chicken razala","Chicken Tikka","Chole bhature","Gajar ka halwa","Jalebi","Kofta","Pani puri","Paratha","Samosa"]
+restaurant_count = Restaurant.count
 
-
-50.times do |n|
-  name = food_item_array[rand(0..24)]
-  price = rand(100..200).round(-1)
-
-  FoodItem.create!( name: name,
-                    price: rand(100..200).round(-1),
-                    restaurant_id: rand(1..Restaurant.count))
-   
+restaurant_count.times do |n|
+  10.times do |m|
+    name = food_item_array[m]
+    FoodItem.create!( name: name,
+                      price: rand(100..200).round(-1),
+                      restaurant_id: n+1)
+  end
 end

@@ -16,3 +16,30 @@
 
 //= require jquery
 //= require bootstrap-sprockets
+
+
+var item_list = "";
+var quantity_list = "";
+var item_counter = 0;
+$(document).ready(function(){
+  $(".add-food-button").click(function(){
+    item_counter++;
+    item = $("#item").val();
+    quantity = $("#quantity").val();
+    if(item_counter!=1){
+      item_list += ", ";
+      quantity_list += ", ";}
+    else{
+      $(".submit-food-order").after('<table class="table table-responsive food-item-list"></table>');
+      append_item = "<tr><th>Food Item</th><th>Quantity</th></tr>";
+      $(".food-item-list").append(append_item);
+    }
+    item_list += item;
+    quantity_list +=quantity;
+    $("#order_item_array").val(item_list);
+    $("#order_quantity_array").val(quantity_list);
+    $("#quantity").val("");
+    append_item = "<tr><td>" + item + "</td><td>" + quantity + "</td></tr>";
+    $(".food-item-list").append(append_item);
+  });
+});

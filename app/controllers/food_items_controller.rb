@@ -27,7 +27,7 @@ class FoodItemsController < ApplicationController
     @food_item = @restaurant.food_items.new(food_item_params)
 
     if @food_item.save
-      redirect_to restaurant_food_item_path(@restaurant, @food_item), notice: 'Invalid email/password combination'
+      redirect_to restaurant_food_item_path(@restaurant, @food_item), notice: 'Food Item added successfully'
     else
       render :new
     end
@@ -52,6 +52,6 @@ class FoodItemsController < ApplicationController
 
   private
     def food_item_params
-      params.required(:food_item).permit(:name,:price)
+      params.require(:food_item).permit(:name,:price)
     end
 end

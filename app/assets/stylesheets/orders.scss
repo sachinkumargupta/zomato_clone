@@ -1,0 +1,25 @@
+// Place all the styles related to the Orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@media (min-width: 768px) {
+  .add-food-button {
+    margin-top: 24px;
+  }
+}
+
+.form-inline.add-food * {
+  display: inline-block !important;
+}
+
+.submit-food-order {
+  margin-top: 15px;
+}
+
+.additional-order-details {
+  margin: 25px 8px;
+}
+
+.food-item-list {
+  margin-top: 50px;
+}

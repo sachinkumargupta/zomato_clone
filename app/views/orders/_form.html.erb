@@ -1,0 +1,59 @@
+<% provide(:button_text, "Order") %>
+
+<%= form_for([@restaurant, @order]) do |f| %>
+  
+  <% if @order.errors.any? %>
+    <div id="error_explanation" class="alert alert-warning">
+      <h4>
+        <%= pluralize(@order.errors.count, "error") %> prohibited
+        this food item from being saved:
+      </h4>
+      <div>
+        <% @order.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="">
+    <div class="form-group">
+      <%= f.label :items %>
+      <%= f.text_field :item_array, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity_array, class: "form-control" %>
+    </div>
+  </div>
+  <br><br><br>
+
+  <div class="form-group delivery-address">
+    <%= f.label :delivery_address %><br>
+    <%= f.text_area :delivery_address, class: "form-control" %>
+  </div>
+
+  <div class="form-inline add-food">
+    <div class="form-group">
+      <label for="item">Items</label><br>
+      <select name="item" class="form-control" id="item">
+        <option value="Food" selected>Food</option>
+        <option value="Restaurant">Restaurant</option>
+        <option value="Menu">Menu</option>
+        <option value="Other">Other</option></select>
+      </select>
+
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity</label><br>
+      <input type="number" value="1" class="form-control quantity" id="quantity">
+    </div>
+    <div class="form-group">
+    <button type="button" class="btn btn-default add-food-button">Add</button>
+    </div>
+  </div>
+   
+  <div class="form-group submit-food-order">
+    <%= f.submit yield(:button_text), class: "btn btn-primary submit-button" %>
+    <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default pull-right" %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917094603) do
+ActiveRecord::Schema.define(version: 20170918135205) do
 
   create_table "food_items", force: :cascade do |t|
     t.string "name"
@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 20170917094603) do
     t.integer "photo_file_size"
     t.datetime "photo_updated_at"
     t.index ["restaurant_id"], name: "index_images_on_restaurant_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.text "item_array"
+    t.text "quantity_array"
+    t.text "delivery_address"
+    t.integer "total"
+    t.integer "restaurant_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
