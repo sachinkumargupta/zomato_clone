@@ -1,6 +1,24 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <h2>Order Food</h2>
-    <%= render 'orders/form' %>
+<div class="row">
+  <div class="col-sm-8 col-md-6 col-md-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-body">  
+        <h2>Order Food</h2>
+        <%= render 'orders/form' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-offset-1 col-md-3 well">
+    <table class="table table-responsive table-striped">
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+      </tr>
+      <% @food_items.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.price %></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>

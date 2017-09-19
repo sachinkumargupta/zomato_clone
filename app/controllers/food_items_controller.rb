@@ -15,6 +15,7 @@ class FoodItemsController < ApplicationController
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
     @food_item = FoodItem.new
+    @food_items = @restaurant.food_items
   end
   
   def edit
@@ -27,7 +28,7 @@ class FoodItemsController < ApplicationController
     @food_item = @restaurant.food_items.new(food_item_params)
 
     if @food_item.save
-      redirect_to restaurant_food_item_path(@restaurant, @food_item), notice: 'Food Item added successfully'
+      redirect_to restaurant_food_item_path(@restaurant, @food_item), flash.now[:info]
     else
       render :new
     end

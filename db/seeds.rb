@@ -86,3 +86,26 @@ restaurant_count.times do |n|
                       restaurant_id: n+1)
   end
 end
+
+#For Order model
+user_count = User.count
+restaurant_count.times do |n|
+  5.times do |m|
+    item_array = "1, 2, 3, 4, 5"
+    quantity_array = "#{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}"
+    quantity = quantity_array.split(', ').map(&:to_i)
+    delivery_address = "#{Faker::Address.street_address} #{Faker::Address.city} #{Faker::Address.state} #{Faker::Address.country}"
+    price = FoodItem.find([1,2,3,4,5]).pluck(:price)
+    total = 0
+    5.times do |i|
+      total += quantity[i] * price[i]
+    end
+
+    Order.create!( item_array: item_array,
+                   quantity_array: quantity_array,
+                   delivery_address: delivery_address,
+                   total: total,
+                   restaurant_id: n+1,
+                   user_id: rand(1..user_count))
+  end
+end
