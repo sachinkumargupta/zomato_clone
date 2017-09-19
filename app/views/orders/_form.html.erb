@@ -1,7 +1,6 @@
 <% provide(:button_text, "Order") %>
 
 <%= form_for([@restaurant, @order]) do |f| %>
-  
   <% if @order.errors.any? %>
     <div id="error_explanation" class="alert alert-warning">
       <h4>
@@ -15,7 +14,8 @@
       </div>
     </div>
   <% end %>
-  <div class="">
+
+  <div class="hidden">
     <div class="form-group">
       <%= f.label :items %>
       <%= f.text_field :item_array, class: "form-control" %>
@@ -24,36 +24,75 @@
       <%= f.label :quantity %>
       <%= f.text_field :quantity_array, class: "form-control" %>
     </div>
+    <br><br><br>
   </div>
-  <br><br><br>
 
-  <div class="form-group delivery-address">
-    <%= f.label :delivery_address %><br>
-    <%= f.text_area :delivery_address, class: "form-control" %>
-  </div>
 
   <div class="form-inline add-food">
     <div class="form-group">
       <label for="item">Items</label><br>
       <select name="item" class="form-control" id="item">
-        <option value="Food" selected>Food</option>
-        <option value="Restaurant">Restaurant</option>
-        <option value="Menu">Menu</option>
-        <option value="Other">Other</option></select>
+        <% @food_items.each do |food_item| %>
+          <option value="<%= food_item.id %>" data-name="<%= food_item.name %>" ><%= food_item.name %></option>
+        <% end %>
       </select>
-
     </div>
     <div class="form-group">
       <label for="quantity">Quantity</label><br>
-      <input type="number" value="1" class="form-control quantity" id="quantity">
+      <input type="number" value="1" min="1" class="form-control quantity" id="quantity">
     </div>
     <div class="form-group">
-    <button type="button" class="btn btn-default add-food-button">Add</button>
+      <button type="button" class="btn btn-default add-food-button">Add</button>
     </div>
+  </div><br>
+  <div class="form-group delivery-address">
+    <%= f.label :delivery_address %><br>
+    <%= f.text_area :delivery_address, class: "form-control" %>
   </div>
-   
+  
   <div class="form-group submit-food-order">
     <%= f.submit yield(:button_text), class: "btn btn-primary submit-button" %>
-    <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default pull-right" %>
+      <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default pull-right" %>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+  var item_list = "";
+  var item_name = "";
+  var quantity_list = "";
+  var item_counter = 0;
+
+  $(document).ready(function(){
+    $(".add-food-button").click(function(){
+      quantity = $("#quantity").val();
+      quantity = Math.trunc(quantity);
+      if(quantity>0) {
+        item_counter++;
+        item = $("#item").val();
+        item_name = $("#item option:selected").attr("data-name");
+        if(item_counter!=1){
+          item_list += ", ";
+          quantity_list += ", ";}
+        else{
+          $(".submit-food-order").after('<table class="table table-responsive food-item-list"></table>');
+          append_item = "<tr><th>Food Item</th><th>Quantity</th></tr>";
+          $(".food-item-list").append(append_item);
+        }
+        item_list += item;
+        quantity_list +=quantity;
+        $("#order_item_array").val(item_list);
+        $("#order_quantity_array").val(quantity_list);
+        $("#quantity").val(1);
+        append_item = "<tr><td>" + item_name + "</td><td>" + quantity + "</td></tr>";
+        $(".food-item-list").append(append_item);
+        $("#item option:selected").remove();
+      }
+      else {
+        alert("Quantity must be greater then 0");
+        $("#quantity").val(1);
+      }
+    });
+  });
+
+</script>

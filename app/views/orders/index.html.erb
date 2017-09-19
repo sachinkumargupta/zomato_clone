@@ -4,17 +4,17 @@
 
     <table class="table table-responsive table-striped">
       <tr>
-        <th><strong>Order Id</strong></th>
-        <th><strong>Delivery To</strong></th>
+        <th>Order Id</th>
+        <th>Delivery To</th>
+        <th>Total</th>
         <th colspan="4"></th>
       </tr>
       
       <% @orders.each do |order| %>
         <tr>
           <td><%= order.id %></td>
-          <td><%= order.delivery_address %></td>
-          <td><%#= order.user_name %></td>
-          <td><%#= order.total %></td>
+          <td><%= order.user.name %></td>
+          <td><%= order.total %></td>
           <td><%= link_to 'Show', [order.restaurant, order] %></td>
           <td><%= link_to 'Delete', [order.restaurant, order], method: :delete, data: {confirm: "Are you sure?"} %></td>
         </tr>
