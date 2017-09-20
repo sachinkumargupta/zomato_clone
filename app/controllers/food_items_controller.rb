@@ -28,7 +28,7 @@ class FoodItemsController < ApplicationController
     @food_item = @restaurant.food_items.new(food_item_params)
 
     if @food_item.save
-      redirect_to restaurant_food_item_path(@restaurant, @food_item), flash.now[:info]
+      redirect_to restaurant_food_item_path(@restaurant, @food_item)
     else
       render :new
     end

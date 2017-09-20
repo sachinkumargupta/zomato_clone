@@ -1,0 +1,33 @@
+<%= form_for([@restaurant, @book_table]) do |f| %>
+  
+  <% if @book_table.errors.any? %>
+    <div id="error_explanation" class="alert alert-warning">
+      <h4>
+        <%= pluralize(@book_table.errors.count, "error") %> prohibited
+        this food item from being saved:
+      </h4>
+      <div>
+        <% @book_table.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :date %><br>
+    <%= f.datetime_field :date, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Head Count" %><br>
+    <%= f.number_field :headcount, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :duration %><br>
+    <%= f.select(:duration, options_for_select([['30 min','30 min'],['1 hour','1 hour'],['1:30 hour','1:30 hour'],['2 hours','2 hours']]), class: "form-control duration-select-button") %>
+  </div>
+  <div class="form-group">
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <%= link_to 'Back', restaurant_book_tables_path(@restaurant), class: "btn btn-default pull-right" %>
+  </div>
+<% end %>

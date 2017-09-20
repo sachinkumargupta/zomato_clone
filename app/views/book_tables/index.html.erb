@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h2>List Bookings</h2>
+
+    <table class="table table-responsive table-striped">
+      <tr>
+        <th><strong>Booking ID</strong></th>
+        <th><strong>Date and Time</strong></th>
+        <th><strong>Duration</strong></th>
+        <th><strong>Name</strong></th>
+        <th><strong>Head Count</strong></th>
+        <th colspan="2"></th>
+      </tr>
+      
+      <% @book_tables.each do |book| %>
+        <tr>
+          <td><%= book.id %></td>
+          <td><%= book.date %></td>
+          <td><%= book.duration %></td>
+          <td><%= book.user.name %></td>
+          <td><%= book.headcount %></td>
+          <td><%= link_to 'Show', [book.restaurant, book] %></td>
+          <td><%= link_to 'Delete', [book.restaurant, book], method: :delete, data: {confirm: "Are you sure?"} %></td>
+        </tr>
+      <% end %>  
+    </table>
+
+    <%= link_to 'Book Table', new_restaurant_book_table_path(@restaurant), class: "btn btn-primary" %>
+    <%= link_to 'Back to Restaurant', @restaurant, class: "btn btn-default pull-right" %>
+  </div>
+</div>
