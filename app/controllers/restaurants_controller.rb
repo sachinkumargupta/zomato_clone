@@ -53,6 +53,19 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
   end
 
+  def search
+    params[:search].chomp.split(/,\s*/).each do |key|
+       @restaurants = Restaurant.where(["name like ? or
+                                         address like ? or 
+                                         restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])
+    end
+
+    if @restaurants.count == 0
+      flash.now[:info] = 'No Record Found'
+    end
+    render :index
+  end
+
   private
     def restaurant_params
       params.require(:restaurant).permit(:name, :address, :restaurant_type, :lat, :long, :location_url, :cover_photo )

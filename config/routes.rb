@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     resources :food_items 
     resources :orders
     resources :book_tables
+    collection do  
+      get 'search'
+    end
   end
 
   root "restaurants#index"
