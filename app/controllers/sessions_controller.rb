@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  
+
   def new
     if logged_in?
       flash[:info] = "You are already logged in"
@@ -22,5 +22,17 @@ class SessionsController < ApplicationController
   def destroy
     log_out if logged_in?
     redirect_to root_url
-   end
+  end
+
+  def omni
+    auth = request.env["omniauth.auth"]
+    session[:omniauth] = auth.except('extra')
+    user = User.sign_in_from_omniauth(auth)
+    session[:user_id] = user.id
+    if log_in(user)
+      redirect_to user_path(user)
+    else
+      redirect_to root_url
+    end
+  end
 end

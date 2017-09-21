@@ -18,25 +18,17 @@
 //= require bootstrap-sprockets
 
 
+
+
+
+
+
+
 $(document).ready(function(){
-  $('.rating-form span').click(function(){
-    value = $(this).attr("data-score");
-    $(".rating-value").val(value);
-    $(this).siblings("span").removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
-    $(this).removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
-    $(this).prevAll(".star").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
-    $(this).removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
-  });
-});
-
-
-
-var item_list = "";
+  var item_list = "";
 var item_name = "";
 var quantity_list = "";
 var item_counter = 0;
-
-$(document).ready(function(){
   $(".add-food-button").click(function(){
     quantity = $("#quantity").val();
     quantity = Math.trunc(quantity);

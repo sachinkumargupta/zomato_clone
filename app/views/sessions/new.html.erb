@@ -26,5 +26,13 @@
     <% end %>
 
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    <br>
+    <span>Login Using Social Media</span>
+    <%= link_to "/auth/google_oauth2" do %>
+       <%= image_tag('google.png', width: '40', height: '40', class: 'image-circle')%>
+    <% end %>
+    <%= link_to "auth/facebook" do %>
+      <%= image_tag('facebook.png', width: '44', height: '44', class: 'image-circle')%>
+    <% end %>
   </div>
 </div>

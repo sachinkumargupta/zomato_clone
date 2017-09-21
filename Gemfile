@@ -36,3 +36,7 @@ gem 'faker', '~> 1.8', '>= 1.8.4'
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 gem 'bootstrap-will_paginate', '~> 1.0'
 gem 'paperclip', '~> 5.1'
+
+gem 'omniauth', '~> 1.6', '>= 1.6.1'
+gem 'omniauth-facebook', '~> 4.0'
+gem 'omniauth-google-oauth2'
