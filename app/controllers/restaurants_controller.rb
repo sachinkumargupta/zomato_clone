@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
-  before_action :logged_in_user, except: [:index, :show, :location]
-  before_action :admin_user,     except: [:index, :show, :location]
+  before_action :logged_in_user, except: [:index, :show, :location, :search, :filter]
+  before_action :admin_user,     except: [:index, :show, :location, :search, :filter]
 
   def index
     @restaurants = Restaurant.all
@@ -56,41 +56,49 @@ class RestaurantsController < ApplicationController
 
   def search
     Restaurant.joins(:food_items)
-    params[:search].chomp.split(/,\s*/).each do |key|
-       @restaurants = Restaurant.where(["name like ? or
-                                         address like ? or 
-                                         restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])
-    end
-    if @restaurants && @restaurants.count == 0
-      flash.now[:info] = 'No Record Found'
-      render :index
+    if params[:search].present?
+      params[:search].chomp.split(/,\s*/).each do |key|
+         @restaurants = Restaurant.where(["name like ? or
+                                           address like ? or 
+                                           restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])
+      end
+      if @restaurants && @restaurants.count == 0
+        flash.now[:info] = 'No Record Found'
+        render :search
+      else
+        render :index
+      end
     else
-      redirect_to restaurants_path
+      redirect_to restaurants_url
     end
   end
 
   def filter
-    if params[:location].present? && params[:type].present?
-      params[:location].split(/,\s*/).each do |key1|
-        params[:type].split(/,\s*/).each do |key2|
-          @restaurants = Restaurant.where(["address like ? and restaurant_type like ?","%#{key1}%","%#{key2}%"])
+    if params[:location].present? || params[:type].present?
+      if params[:location].present? && params[:type].present?
+        params[:location].split(/,\s*/).each do |key1|
+          params[:type].split(/,\s*/).each do |key2|
+            @restaurants = Restaurant.where(["address like ? and restaurant_type like ?","%#{key1}%","%#{key2}%"])
+          end
+        end
+      elsif params[:location].present?
+        params[:location].split(/,\s*/).each do |key|
+           @restaurants = Restaurant.where(["address like ?","%#{key}%"])
+        end
+      elsif params[:type].present?
+        params[:type].split(/,\s*/).each do |key|
+           @restaurants = Restaurant.where(["restaurant_type like ?","%#{key}%"])
         end
       end
-    elsif params[:location].present?
-      params[:location].split(/,\s*/).each do |key|
-         @restaurants = Restaurant.where(["address like ?","%#{key}%"])
-      end
-    elsif params[:type].present?
-      params[:type].split(/,\s*/).each do |key|
-         @restaurants = Restaurant.where(["restaurant_type like ?","%#{key}%"])
-      end
-    end
 
-    if @restaurants && @restaurants.count == 0
-      flash.now[:info] = 'No Record Found'
-      render :index
+      if @restaurants && @restaurants.count == 0
+        flash.now[:info] = 'No Record Found'
+        render :search
+      else
+        render :index
+      end
     else
-      redirect_to restaurants_path
+      redirect_to restaurants_url
     end
   end
 
