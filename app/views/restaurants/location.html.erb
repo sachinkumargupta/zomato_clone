@@ -16,9 +16,9 @@
 
 <script>
 function myMap() {
-  var lat = parseFloat("<%= @restaurant.lat %>");
-  var long = parseFloat("<%= @restaurant.long %>");
-  var myCenter = new google.maps.LatLng(lat,long);
+  var latitude = parseFloat("<%= @restaurant.latitude %>");
+  var longitude = parseFloat("<%= @restaurant.longitude %>");
+  var myCenter = new google.maps.LatLng(latitude,longitude);
   var mapCanvas = document.getElementById("map");
   var mapOptions = {center: myCenter, zoom: 15};
   var map = new google.maps.Map(mapCanvas, mapOptions);

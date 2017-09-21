@@ -6,6 +6,22 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# address_array for generating genuine addresses for restaurants
+address_array = ["St. Xaviers Collegiate School 30, Park Street Kolkata - 700 016",
+"Loreto Day School (Sealdah)122, A. J. C. Bose RoadKolkata - 700 020",
+"Loreto Day School (Bowbazar)65, B. B. Ganguly Street Kolkata - 700 012",
+"St. James School 165/166, A. J. C. Bose Road Kolkata - 700 014",
+"La Martinere Boys School 11, Loudon Street Kolkata - 700 017",
+"La Martinere Girls School 14, Sarojini Naidu Sarani Minto Park Kolkata - 700 017",
+"Julien Day School (Elgin Road) 35E, Lala Lajpat Rai Sarani Kolkata - 700 020",
+"Sarat Bose Road Kolkata - 20",
+"Modern High School For Girls 78, Syed Amir Ali Avenue Kolkata - 700 019",
+"Gariahata Road (South)Kolkata - 700 031",
+"M P Birla Foundation School James Long Sarani Kolkata - 700 034",
+"National High School For Girls 164, Sarat Bose Road Kolkata - 700 029",
+"National High School 42/1, Hazra Road Kolkata - 700 019"]
+
+
 # For User 
 User.create!(name:  "Sachin Admin",
              email: "sachin1@gmail.com",
@@ -24,22 +40,14 @@ User.create!(name:  "Sachin Admin",
 end
 
 # For Restaurant 
-6.times do |n|
+10.times do |n|
   name = Faker::Company.name
-  address = "#{Faker::Address.street_address} #{Faker::Address.city} #{Faker::Address.state} #{Faker::Address.country}"
-  lat = Faker::Address.latitude
-  long = Faker::Address.longitude
-  location_url = "https://www.google.com/maps/preview/@#{lat},#{long},15z"
   type = %w(Fast\ food Dining Barbeque Buffet Cafe Destination\ restaurant Pub)
   restaurant_type = type[rand(0..6)]
-  
   Restaurant.create!(name: name,
-                     address: address,
-                     lat: lat,
-                     long: long,
-                     location_url: location_url,
+                     address: address_array[n],
                      restaurant_type: restaurant_type,
-                     cover_photo: File.open("app/assets/images/restaurant/#{n+1}.jpg"))
+                     cover_photo: File.open("app/assets/images/restaurant/#{(n)%6 + 1}.jpg"))
 end
 
 # For Reviews

@@ -1,0 +1,9 @@
+<%= form_tag filter_restaurants_path, method: :get, role: "filter" do %>
+  <div class="form-group">
+    <%= text_field_tag :type, params[:type], placeholder: "Restaurant Type", value: "", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= text_field_tag :nearby, params[:nearby], placeholder: "Search Nearby", value: "", class: "form-control" %>
+  </div>
+  <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+<% end %>
