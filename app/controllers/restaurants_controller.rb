@@ -55,15 +55,18 @@ class RestaurantsController < ApplicationController
   end
 
   def search
+    Restaurant.joins(:food_items)
     params[:search].chomp.split(/,\s*/).each do |key|
        @restaurants = Restaurant.where(["name like ? or
                                          address like ? or 
                                          restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])
     end
-    if @restaurants.count == 0
+    if @restaurants && @restaurants.count == 0
       flash.now[:info] = 'No Record Found'
+      render :index
+    else
+      redirect_to restaurants_path
     end
-    render :index
   end
 
   def filter
@@ -83,10 +86,12 @@ class RestaurantsController < ApplicationController
       end
     end
 
-    if @restaurants.count == 0
+    if @restaurants && @restaurants.count == 0
       flash.now[:info] = 'No Record Found'
+      render :index
+    else
+      redirect_to restaurants_path
     end
-    render :index
   end
 
   private
