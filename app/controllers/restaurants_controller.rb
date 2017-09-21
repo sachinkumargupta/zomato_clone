@@ -13,6 +13,7 @@ class RestaurantsController < ApplicationController
     else
       @reviews = @restaurant.reviews.order("created_at DESC").where(approved: true);
     end
+    @reviews.joins(:users)
   end
 
   def new
@@ -50,7 +51,7 @@ class RestaurantsController < ApplicationController
   end
 
   def location
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
   def search
@@ -58,6 +59,28 @@ class RestaurantsController < ApplicationController
        @restaurants = Restaurant.where(["name like ? or
                                          address like ? or 
                                          restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])
+    end
+    if @restaurants.count == 0
+      flash.now[:info] = 'No Record Found'
+    end
+    render :index
+  end
+
+  def filter
+    if params[:location].present? && params[:type].present?
+      params[:location].split(/,\s*/).each do |key1|
+        params[:type].split(/,\s*/).each do |key2|
+          @restaurants = Restaurant.where(["address like ? and restaurant_type like ?","%#{key1}%","%#{key2}%"])
+        end
+      end
+    elsif params[:location].present?
+      params[:location].split(/,\s*/).each do |key|
+         @restaurants = Restaurant.where(["address like ?","%#{key}%"])
+      end
+    elsif params[:type].present?
+      params[:type].split(/,\s*/).each do |key|
+         @restaurants = Restaurant.where(["restaurant_type like ?","%#{key}%"])
+      end
     end
 
     if @restaurants.count == 0

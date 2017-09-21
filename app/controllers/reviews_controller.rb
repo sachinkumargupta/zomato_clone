@@ -13,10 +13,17 @@ class ReviewsController < ApplicationController
     redirect_to restaurant_path(@restaurant)
   end
 
- def destroy
+  def approved
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = @restaurant.reviews.find(params[:review_id])
+    @review.update(approved: true)
+    redirect_to @restaurant
+  end
+
+  def destroy
    @review.destroy
    redirect_to restaurant_path(@restaurant)
- end
+  end
 
   private
     def review_params

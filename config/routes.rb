@@ -8,16 +8,18 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   resources :users
 
-  get '/restaurants/:id/location', to: 'restaurants#location', as: 'restaurant_location'
-  
   resources :restaurants do  
-    resources :reviews
+    resources :reviews do  
+      get 'approved'
+    end
+    get 'location'
     resources :images
     resources :food_items 
     resources :orders
     resources :book_tables
     collection do  
       get 'search'
+      get 'filter'
     end
   end
 

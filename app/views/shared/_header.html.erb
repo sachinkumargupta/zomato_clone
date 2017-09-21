@@ -51,3 +51,26 @@
     </div><!-- /.container-fluid -->
   </nav>
 </header>
+
+<div class="container">
+  <div class="row filter">
+    <div class="col-sm-12 col-md-10 col-lg-10 col-md-offset-1">
+      <div class="row well">
+      <div class="form-inline">
+        <%= form_tag filter_restaurants_path, method: :get, class: "navbar-form navbar-left", role: "filter" do %>
+          <div class="form-group">
+            <label for="type">Restaurant Type</label>
+            <%= text_field_tag :type, params[:type], class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <%= text_field_tag :location, params[:location], class: "form-control" %>
+          </div>
+          
+          <%= submit_tag "filter", class: "btn btn-default"%>
+        <% end %>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
