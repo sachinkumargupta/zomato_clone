@@ -8,14 +8,19 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
-      log_in user
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_back_or restaurants_path
+    unless session[:user_id].present?
+      user = User.find_by(email: params[:session][:email].downcase)
+      if user && user.authenticate(params[:session][:password])
+        log_in user
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        redirect_back_or restaurants_path
+      else
+        flash.now[:danger] = 'Invalid email/password combination'
+        render 'new'
+      end
     else
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
+      flash[:info] = "You are already logged in an account"
+      redirect_to restaurants_path
     end
   end
 

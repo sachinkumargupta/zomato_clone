@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
-  before_action :logged_in_user, except: [:index, :show, :location, :search, :filter, :nearby]
-  before_action :admin_user,     except: [:index, :show, :location, :search, :filter, :nearby]
+  before_action :logged_in_user, except: [:index, :show, :location, :search, :filter, :nearby, :error]
+  before_action :admin_user,     except: [:index, :show, :location, :search, :filter, :nearby, :error]
 
   def index
     @restaurants = Restaurant.all
@@ -28,7 +28,8 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
   
     if @restaurant.save
-      redirect_to @restaurant, notice: 'Restaurant was successfully created.'
+      flash[:success] = "Restaurant was successfully created"
+      redirect_to @restaurant
     else
       render :new
     end
@@ -38,7 +39,8 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     
     if @restaurant.update(restaurant_params)
-      redirect_to @restaurant, notice: 'Restaurant was successfully updated.'
+      flash[:success] = "Restaurant was successfully updated."
+      redirect_to @restaurant
     else
       render :edit
     end
@@ -47,17 +49,21 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
-    redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.'    
+    flash[:success] = "Restaurant was successfully destroyed."
+    redirect_to restaurants_url
   end
 
   def location
     @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
+  def error
+  end
+
   def filter
     if params[:nearby].present? || params[:type].present?
       if params[:nearby].present?
-        @restaurants = Restaurant.near(params[:nearby], 50)
+        @restaurants = Restaurant.near(params[:nearby], 8)
         flash.now[:info] = "No Record Found" if @restaurants && @restaurants.length == 0
         render :index
       elsif params[:type].present?
@@ -80,8 +86,9 @@ class RestaurantsController < ApplicationController
                                            restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])
       end
       if @restaurants && @restaurants.count == 0
-        flash.now[:info] = 'No Record Found'
-        render :search
+        params[:nearby] = params[:search]
+        params[:type] = params[:search]
+        filter
       else
         render :index
       end

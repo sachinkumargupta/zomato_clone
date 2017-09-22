@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get "error", to: "restaurants#error"
   resources :users
 
   resources :restaurants do  
@@ -14,10 +15,10 @@ Rails.application.routes.draw do
       get 'approved'
     end
     get 'location'
-    resources :images
+    resources :images, except: [:new, :edit, :update]
     resources :food_items 
-    resources :orders
-    resources :book_tables
+    resources :orders, except: [:edit, :update]
+    resources :book_tables, except: [:edit, :update]
     collection do  
       get 'search'
       get 'filter'
@@ -25,4 +26,5 @@ Rails.application.routes.draw do
   end
 
   root "restaurants#index"
+  get "*path", to: redirect("/error")
 end

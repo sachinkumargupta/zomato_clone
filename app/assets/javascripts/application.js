@@ -19,11 +19,6 @@
 
 
 
-
-
-
-
-
 $(document).ready(function(){
   var item_list = "";
 var item_name = "";

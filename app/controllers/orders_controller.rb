@@ -34,15 +34,16 @@ class OrdersController < ApplicationController
     @order.total = calculate_total(@order.item_array,@order.quantity_array)
 
     if @order.save
-      redirect_to restaurant_order_path(@restaurant, @order), notice: 'Order Placed successfully'
+      flash[:success] = "Order Placed successfully"
+      redirect_to restaurant_order_path(@restaurant, @order)
     else
       render :new
     end
   end
   
   def destroy
-
     @order.destroy
+    flash[:success] = "Order destroyed successfully"
     redirect_to restaurant_orders_path(@restaurant)
   end
 

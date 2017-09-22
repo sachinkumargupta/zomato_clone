@@ -30,6 +30,7 @@ class BookTablesController < ApplicationController
     @book_table.user_id = current_user.id
 
     if @book_table.save
+      flash[:success] = "Table Booked successfully"
       redirect_to restaurant_book_table_path(@restaurant, @book_table)
     else
       render :new
@@ -40,6 +41,7 @@ class BookTablesController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @book_table = BookTable.find(params[:id])
     @book_table.destroy
+    flash[:success] = "Table cancelled successfully"
     redirect_to restaurant_book_tables_path(@restaurant)
   end
   private

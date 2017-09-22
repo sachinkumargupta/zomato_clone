@@ -14,6 +14,7 @@ class ImagesController < ApplicationController
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
     @image = @restaurant.images.create(image_params)
+    flash[:success] = "Image Uploaded successfully"
     redirect_to restaurant_images_path(@restaurant)
   end
 
@@ -21,6 +22,7 @@ class ImagesController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @image = @restaurant.images.find(params[:id])
     @image.destroy
+    flash[:success] = "Image destroyed successfully"
     redirect_to restaurant_images_path(@restaurant)
   end
  

@@ -28,6 +28,7 @@ class FoodItemsController < ApplicationController
     @food_item = @restaurant.food_items.new(food_item_params)
 
     if @food_item.save
+      flash[:success] = "Food Item added successfully"
       redirect_to restaurant_food_item_path(@restaurant, @food_item)
     else
       render :new
@@ -38,7 +39,8 @@ class FoodItemsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @food_item = FoodItem.find(params[:id])
     if @food_item.update(food_item_params)
-      redirect_to [@restaurant, @food_item], notice: 'Food Item was updated successfully'
+      flash[:success] = "Food Item updated successfully"
+      redirect_to [@restaurant, @food_item]
     else
       render :edit
     end
@@ -48,6 +50,7 @@ class FoodItemsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @food_item = FoodItem.find(params[:id])
     @food_item.destroy
+    flash[:success] = "Food Item destroyed successfully"
     redirect_to restaurant_food_items_path(@restaurant)
   end
 
