@@ -1,9 +1,9 @@
 class ReviewsController < ApplicationController
+  before_action :find_restaurant
   before_action :logged_in_user
   before_action :correct_user_or_admin, only: :destroy
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.new(review_params)
     @review.user_id = current_user.id
     if current_user.admin?
@@ -14,7 +14,6 @@ class ReviewsController < ApplicationController
   end
 
   def approved
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:review_id])
     @review.update(approved: true)
     redirect_to @restaurant
@@ -30,8 +29,11 @@ class ReviewsController < ApplicationController
       params.require(:review).permit(:rating, :comment)
     end
 
-    def correct_user_or_admin
+    def find_restaurant
       @restaurant = Restaurant.find(params[:restaurant_id])
+    end
+
+    def correct_user_or_admin
       @review = @restaurant.reviews.find(params[:id])
       unless current_user.id == @review.user_id || current_user.admin?
         flash[:danger] = "Access Denied"

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get 'approved'
     end
     get 'location'
-    resources :images, except: [:new, :edit, :update]
+    resources :images, except: [:show, :new, :edit, :update]
     resources :food_items 
     resources :orders, except: [:edit, :update]
     resources :book_tables, except: [:edit, :update]

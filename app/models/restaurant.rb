@@ -17,4 +17,10 @@ class Restaurant < ApplicationRecord
   before_save do 
     self.location_url = "https://www.google.com/maps/preview/@#{latitude},#{longitude},10z" unless location_url.present?
   end
+
+  scope :search_with_keywords, ->(key) { where(["name like ? or
+                                           address like ? or 
+                                           restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])}
+
+  scope :filter_based_on_type, ->(key) {where(["restaurant_type like ?","%#{key}%"])}
 end

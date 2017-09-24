@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  before_action :find_restaurant, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, except: [:index, :show, :location, :search, :filter, :nearby, :error]
   before_action :admin_user,     except: [:index, :show, :location, :search, :filter, :nearby, :error]
 
@@ -7,13 +8,11 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find(params[:id])
     if logged_in? && current_user.admin?
-      @reviews = @restaurant.reviews.order("created_at DESC")
+      @reviews = @restaurant.reviews.includes(:user).order("created_at DESC")
     else
-      @reviews = @restaurant.reviews.order("created_at DESC").where(approved: true);
+      @reviews = @restaurant.reviews.includes(:user).order("created_at DESC").where(approved: true);
     end
-    @reviews.joins(:users)
   end
 
   def new
@@ -21,12 +20,10 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-    @restaurant = Restaurant.find(params[:id])
   end
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-  
     if @restaurant.save
       flash[:success] = "Restaurant was successfully created"
       redirect_to @restaurant
@@ -36,8 +33,6 @@ class RestaurantsController < ApplicationController
   end
 
   def update
-    @restaurant = Restaurant.find(params[:id])
-    
     if @restaurant.update(restaurant_params)
       flash[:success] = "Restaurant was successfully updated."
       redirect_to @restaurant
@@ -47,7 +42,6 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
     flash[:success] = "Restaurant was successfully destroyed."
     redirect_to restaurants_url
@@ -68,7 +62,7 @@ class RestaurantsController < ApplicationController
         render :index
       elsif params[:type].present?
         params[:type].split(/,\s*/).each do |key|
-           @restaurants = Restaurant.where(["restaurant_type like ?","%#{key}%"])
+           @restaurants = Restaurant.filter_based_on_type(key)
            flash.now[:info] = "No Record Found" if @restaurants && @restaurants.count == 0
            render :index
         end
@@ -78,12 +72,11 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  def search
+  #common search bar
+  def search      
     if params[:search].present?
       params[:search].chomp.split(/,\s*/).each do |key|
-         @restaurants = Restaurant.where(["name like ? or
-                                           address like ? or 
-                                           restaurant_type like ?","%#{key}%","%#{key}%","%#{key}%"])
+         @restaurants = Restaurant.search_with_keywords(key)
       end
       if @restaurants && @restaurants.count == 0
         params[:nearby] = params[:search]
@@ -100,5 +93,9 @@ class RestaurantsController < ApplicationController
   private
     def restaurant_params
       params.require(:restaurant).permit(:name, :address, :restaurant_type, :latitude, :longitude, :location_url, :cover_photo )
+    end
+
+    def find_restaurant
+      @restaurant = Restaurant.find(params[:id])  
     end
 end

@@ -18,9 +18,8 @@
 //= require bootstrap-sprockets
 
 
-
 $(document).ready(function(){
-  var item_list = "";
+var item_list = "";
 var item_name = "";
 var quantity_list = "";
 var item_counter = 0;

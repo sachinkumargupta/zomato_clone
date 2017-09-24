@@ -1,7 +1,7 @@
 <p><%= link_to 'Back', @restaurant, class: "btn btn-default" %></p>
-<% unless @restaurant.images.count == 0 %>
+<% unless @images.count == 0 %>
   <div class="row">
-    <% @restaurant.images.each do |image| %>   
+    <% @images.each do |image| %>   
       <div class="col-sm-4">
         <%= image_tag image.photo.url(:medium), class: "img-responsive thumbnail" %>
         <div class="image-category">
