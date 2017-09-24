@@ -14,17 +14,18 @@
   </div>
 </div>
 
-<script>
-function myMap() {
-  var latitude = parseFloat("<%= @restaurant.latitude %>");
-  var longitude = parseFloat("<%= @restaurant.longitude %>");
-  var myCenter = new google.maps.LatLng(latitude,longitude);
-  var mapCanvas = document.getElementById("map");
-  var mapOptions = {center: myCenter, zoom: 15};
-  var map = new google.maps.Map(mapCanvas, mapOptions);
-  var marker = new google.maps.Marker({position:myCenter});
-  marker.setMap(map);
-}
-</script>
 
+
+<script type="text/javascript">
+  function myMap() {
+    var latitude = parseFloat("<%= @restaurant.latitude %>");
+    var longitude = parseFloat("<%= @restaurant.longitude %>");
+    var myCenter = new google.maps.LatLng(latitude,longitude);
+    var mapCanvas = document.getElementById("map");
+    var mapOptions = {center: myCenter, zoom: 15};
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+    var marker = new google.maps.Marker({position:myCenter});
+    marker.setMap(map);
+  }
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSKxReJgUO7vNqIHuHV1Br-65yk-qaNM&callback=myMap"></script>

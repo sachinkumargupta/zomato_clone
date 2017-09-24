@@ -9,8 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-  
-  
+    
   <%= render 'shared/header' %>
   <div class="container">
     <% flash.each do |message_type, message| %>
@@ -18,8 +17,6 @@
     <% end %>
     <%= yield %>
   </div>
-  
-  <footer></footer>
 
 </body>
 </html>

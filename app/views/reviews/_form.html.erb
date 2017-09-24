@@ -24,16 +24,3 @@
     <h5 class="alert alert-info">Login to add Reviews or Restaurant images</h5>
     <%= link_to 'Login', login_path, class: "btn btn-primary" %>
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.rating-form span').click(function(){
-      value = $(this).attr("data-score");
-      $(".rating-value").val(value);
-      $(this).siblings("span").removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
-      $(this).removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
-      $(this).prevAll(".star").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
-      $(this).removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
-    });
-  });
-</script>
