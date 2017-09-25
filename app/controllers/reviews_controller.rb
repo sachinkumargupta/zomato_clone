@@ -10,6 +10,7 @@ class ReviewsController < ApplicationController
       @review.approved = true
     end
     @review.save
+    flash[:info] = "Thanks for your Review. It will be shown after being approved by the Admin"
     redirect_to restaurant_path(@restaurant)
   end
 
