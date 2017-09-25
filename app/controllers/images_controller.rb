@@ -8,8 +8,12 @@ class ImagesController < ApplicationController
   end
 
   def create
-    @image = @restaurant.images.create(image_params)
-    flash[:success] = "Image Uploaded successfully"
+    @image = @restaurant.images.new(image_params)
+    if @image.save
+      flash[:success] = "Image Uploaded successfully"
+    else
+      flash[:danger] = "Failed to upload! Image has to be present"
+    end
     redirect_to restaurant_images_path(@restaurant)
   end
 

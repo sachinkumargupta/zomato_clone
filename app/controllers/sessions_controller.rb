@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
         render 'new'
       end
     else
-      flash[:info] = "You are already logged in an account"
+      flash[:danger] = "You are already logged through an account"
       redirect_to restaurants_path
     end
   end
@@ -30,14 +30,19 @@ class SessionsController < ApplicationController
   end
 
   def omni
-    auth = request.env["omniauth.auth"]
-    session[:omniauth] = auth.except('extra')
-    user = User.sign_in_from_omniauth(auth)
-    session[:user_id] = user.id
-    if log_in(user)
-      redirect_to user_path(user)
-    else
+    if session[:user_id].present?
+      flash[:danger] = "You are already logged through an account"
       redirect_to root_url
+    else
+      auth = request.env["omniauth.auth"]
+      session[:omniauth] = auth.except('extra')
+      user = User.sign_in_from_omniauth(auth)
+      session[:user_id] = user.id
+      if log_in(user)
+        redirect_to user_path(user)
+      else
+        redirect_to root_url
+      end
     end
   end
 end

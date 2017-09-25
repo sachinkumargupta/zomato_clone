@@ -1,18 +1,5 @@
-<%= form_for([@restaurant, @food_item]) do |f| %>
-  
-  <% if @food_item.errors.any? %>
-    <div id="error_explanation" class="alert alert-warning">
-      <h4>
-        <%= pluralize(@food_item.errors.count, "error") %> prohibited
-        this food item from being saved:
-      </h4>
-      <div>
-        <% @food_item.errors.full_messages.each do |msg| %>
-          <p><%= msg %></p>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+<%= form_for([@restaurant, @food_item]) do |f| %> 
+  <%= render 'shared/error_messages', object: @food_item %>
 
   <div class="form-group">
     <%= f.label :name %><br>

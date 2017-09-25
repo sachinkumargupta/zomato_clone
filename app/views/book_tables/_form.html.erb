@@ -1,19 +1,6 @@
 <%= form_for([@restaurant, @book_table]) do |f| %>
+  <%= render 'shared/error_messages', object: @book_table %>
   
-  <% if @book_table.errors.any? %>
-    <div id="error_explanation" class="alert alert-warning">
-      <h4>
-        <%= pluralize(@book_table.errors.count, "error") %> prohibited
-        Table Booking :
-      </h4>
-      <div>
-        <% @book_table.errors.full_messages.each do |msg| %>
-          <p><%= msg %></p>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
   <div class="form-group">
     <%= f.label :date %><br>
     <%= f.datetime_field :date, class: "form-control" %>

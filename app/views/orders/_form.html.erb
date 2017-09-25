@@ -1,19 +1,8 @@
 <% provide(:button_text, "Order") %>
 
 <%= form_for([@restaurant, @order]) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation" class="alert alert-warning">
-      <h4>
-        <%= pluralize(@order.errors.count, "error") %> prohibited
-        this food item from being saved:
-      </h4>
-      <div>
-        <% @order.errors.full_messages.each do |msg| %>
-          <p><%= msg %></p>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+  <%= render 'shared/error_messages', object: @order %>
+
 
   <div class="hidden">
     <div class="form-group">
@@ -45,6 +34,7 @@
       <button type="button" class="btn btn-default add-food-button">Add</button>
     </div>
   </div><br>
+
   <div class="form-group delivery-address">
     <%= f.label :delivery_address %><br>
     <%= f.text_area :delivery_address, class: "form-control" %>
@@ -55,8 +45,3 @@
       <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default pull-right" %>
   </div>
 <% end %>
-
-
-<script type="text/javascript">
-
-</script>

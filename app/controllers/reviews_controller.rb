@@ -9,8 +9,11 @@ class ReviewsController < ApplicationController
     if current_user.admin?
       @review.approved = true
     end
-    @review.save
-    flash[:info] = "Thanks for your Review. It will be shown after being approved by the Admin"
+    if @review.save
+      flash[:info] = "Thanks for your Review. It will be shown after being approved by the Admin"
+    else
+      flash[:danger] = "Failed to add the Review. Rating must be present"
+    end
     redirect_to restaurant_path(@restaurant)
   end
 
