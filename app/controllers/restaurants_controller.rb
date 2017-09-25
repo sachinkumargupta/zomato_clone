@@ -55,20 +55,25 @@ class RestaurantsController < ApplicationController
   end
 
   def filter
-    if params[:nearby].present? || params[:type].present?
-      if params[:nearby].present?
-        @restaurants = Restaurant.near(params[:nearby], 8)
-        flash.now[:info] = "No Record Found" if @restaurants && @restaurants.length == 0
-        render :index
-      elsif params[:type].present?
-        params[:type].split(/,\s*/).each do |key|
-           @restaurants = Restaurant.filter_based_on_type(key)
-           flash.now[:info] = "No Record Found" if @restaurants && @restaurants.count == 0
-           render :index
+    begin
+      if params[:nearby].present? || params[:type].present?
+        if params[:nearby].present?
+          @restaurants = Restaurant.near(params[:nearby], 8).order("distance ASC").first(3)
+          flash.now[:info] = "No Record Found" if @restaurants && @restaurants.length == 0
+          render :index
+        elsif params[:type].present?
+          params[:type].split(/,\s*/).each do |key|
+             @restaurants = Restaurant.filter_based_on_type(key)
+             flash.now[:info] = "No Record Found" if @restaurants && @restaurants.count == 0
+             render :index
+          end
         end
+      else
+        redirect_to root_url
       end
-    else
-      redirect_to root_url
+    rescue
+      flash.now[:info] = "Sorry! Something went wrong, Google API did not respond correctly. Please try again after something"
+      render :search
     end
   end
 

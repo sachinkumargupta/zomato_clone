@@ -40,7 +40,7 @@ User.create!(name:  "Sachin Admin",
 end
 
 # For Restaurant 
-10.times do |n|
+6.times do |n|
   name = Faker::Company.name
   type = %w(Fast\ food Dining Barbeque Buffet Cafe Destination\ restaurant Pub)
   restaurant_type = type[rand(0..6)]
@@ -51,7 +51,7 @@ end
 end
 
 # For Reviews
-30.times do |n|
+50.times do |n|
   rating = rand(1..5)
   comment = Faker::Movie.quote
   user_id = rand(1..User.count)
@@ -98,11 +98,12 @@ end
 user_count = User.count
 restaurant_count.times do |n|
   5.times do |m|
-    item_array = "1, 2, 3, 4, 5"
+    item_array = "#{10*n+1}, #{10*n+2}, #{10*n+3}, #{10*n+4}, #{10*n+5}"
+    item_id = item_array.split(', ')
     quantity_array = "#{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}"
     quantity = quantity_array.split(', ').map(&:to_i)
     delivery_address = "#{Faker::Address.street_address} #{Faker::Address.city} #{Faker::Address.state} #{Faker::Address.country}"
-    price = FoodItem.find([1,2,3,4,5]).pluck(:price)
+    price = FoodItem.find(item_id).pluck(:price)
     total = 0
     5.times do |i|
       total += quantity[i] * price[i]
