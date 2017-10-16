@@ -4,37 +4,31 @@
   <%= render 'shared/error_messages', object: @order %>
 
 
-  <div class="hidden">
+  <div class="">
     <div class="form-group">
       <%= f.label :items %>
-      <%= f.text_field :item_array, class: "form-control" %>
+      <%= f.text_field :item_array, class: "form-control item_array" %>
     </div>
     <div class="form-group">
       <%= f.label :quantity %>
-      <%= f.text_field :quantity_array, class: "form-control" %>
+      <%= f.text_field :quantity_array, class: "form-control quantity_array" %>
     </div>
     <br><br><br>
   </div>
-
-
-  <div class="form-inline add-food">
-    <div class="form-group">
-      <label for="item">Items</label><br>
-      <select name="item" class="form-control" id="item">
-        <% @food_items.each do |food_item| %>
-          <option value="<%= food_item.id %>" data-name="<%= food_item.name %>" ><%= food_item.name %></option>
-        <% end %>
-      </select>
+  
+  <% @food_items.each do |food_item| %>
+    <div class="row form-group">
+      <div class="col-xs-5">
+        <%= f.label "#{food_item.name}"%>
+        <input type="text" value="<%= food_item.id %>" class="item hidden" >
+      </div>
+      <div class="col-xs-6">
+        <input type="number" value="0" min="0" onChange="generate_array();" class="form-control quantity">
+      </div>
     </div>
-    <div class="form-group">
-      <label for="quantity">Quantity</label><br>
-      <input type="number" value="1" min="1" class="form-control quantity" id="quantity">
-    </div>
-    <div class="form-group">
-      <button type="button" class="btn btn-default add-food-button">Add</button>
-    </div>
-  </div><br>
+  <% end %>
 
+  <br>
   <div class="form-group delivery-address">
     <%= f.label :delivery_address %><br>
     <%= f.text_area :delivery_address, class: "form-control" %>
@@ -45,3 +39,34 @@
       <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default pull-right" %>
   </div>
 <% end %>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  generate_array();
+});
+
+function generate_array(){
+  var item_array = "";
+  var quantity_array = "";
+
+  $(".item").map(function(){
+    item_id = $(this).val();
+    item_array += item_id + " ";
+  });
+  item_array = item_array.trim();
+  $(".item_array").val(item_array);
+  //alert(item_array);
+
+  $(".quantity").map(function(){
+    value = $(this).val();
+    value = parseInt(value);
+    quantity_array += value + " ";
+  });
+  quantity_array = quantity_array.trim();
+  $(".quantity_array").val(quantity_array);
+  //alert(quantity_array);
+}
+</script>
