@@ -98,7 +98,7 @@ end
 # For Order model
 user_count = User.count
 restaurant_count.times do |n|
-  5.times do |m|
+  10.times do |m|
     item_array = "#{10*n+1} #{10*n+2} #{10*n+3} #{10*n+4} #{10*n+5} #{10*n+6} #{10*n+7} #{10*n+8} #{10*n+9} #{10*n+10}"
     item_array_id = item_array.split(' ')
     quantity_array = "#{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)}"
@@ -113,12 +113,22 @@ restaurant_count.times do |n|
       end
     end
 
-    Order.create!( item_array: item_array,
+    if m < 6
+      Order.create!( item_array: item_array,
+                     quantity_array: quantity_array,
+                     delivery_address: delivery_address,
+                     total: total,
+                     restaurant_id: n+1,
+                     user_id: rand(1..user_count))
+    else
+      Order.create( item_array: item_array,
                    quantity_array: quantity_array,
                    delivery_address: delivery_address,
                    total: total,
                    restaurant_id: n+1,
-                   user_id: rand(1..user_count))
+                   user_id: rand(1..user_count),
+                   created_at: Date.today - rand(1..10).days )
+    end
   end
 end
 

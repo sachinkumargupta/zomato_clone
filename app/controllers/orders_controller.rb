@@ -7,9 +7,9 @@ class OrdersController < ApplicationController
 
   def index
     if current_user.admin?
-      @orders = @restaurant.orders
+      @orders = @restaurant.orders.includes(:user)
     else  
-      @orders = @restaurant.orders.where(user_id: current_user.id)
+      @orders = @restaurant.orders.includes(:user).where(user_id: current_user.id)
     end
   end
   
@@ -25,6 +25,10 @@ class OrdersController < ApplicationController
   end
   
   def edit
+    if @order.created_at < Date.today
+      flash[:warning] = "You can not edit this Order anymore"
+      redirect_to restaurant_orders_path(@restaurant)
+    end
   end
 
   def create
