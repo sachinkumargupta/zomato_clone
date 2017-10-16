@@ -12,7 +12,7 @@ class ImagesController < ApplicationController
     if @image.save
       flash[:success] = "Image Uploaded successfully"
     else
-      flash[:danger] = "Failed to upload! Image has to be present"
+      flash[:danger] = "Failed to upload! Image & Rating both must to be present"
     end
     redirect_to restaurant_images_path(@restaurant)
   end
@@ -26,7 +26,7 @@ class ImagesController < ApplicationController
  
   private
     def image_params
-      params.require(:image).permit(:category, :photo)
+      params.require(:image).permit(:category, :photo, :rating)
     end
 
     def find_restaurant

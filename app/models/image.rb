@@ -7,4 +7,6 @@ class Image < ApplicationRecord
   validates :photo, attachment_presence: true
   validates :category, presence: true
   validates :category, inclusion: { in: %w(Food Restaurant Menu Other)}
+  validates :rating, presence: true
+  validates_numericality_of :rating, less_than_or_equal_to: 5
 end

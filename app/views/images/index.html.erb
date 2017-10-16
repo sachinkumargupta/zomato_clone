@@ -1,7 +1,7 @@
 <p><%= link_to 'Back', @restaurant, class: "btn btn-default" %></p>
 <% unless @images.count == 0 %>
   <div class="row">
-    <% @images.each do |image| %>   
+    <% @images.each do |image| %>
       <div class="col-sm-4">
         <%= image_tag image.photo.url(:medium), class: "img-responsive thumbnail" %>
         <div class="image-category">
@@ -14,6 +14,18 @@
                          data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default" %>
           </p>
         <% end %>
+        <p><% data_score = image.rating %>
+          <% if data_score %>
+            <% for i in 1..5 %>
+              <% if i<= data_score %>
+                <span class="glyphicon glyphicon-star"></span>
+                <% else %>
+                <span class="glyphicon glyphicon-star-empty"></span>
+              <% end %>
+            <% end %>
+          <% end %>
+        </p>
+        <br>
       </div>
     <% end %>
   </div>
