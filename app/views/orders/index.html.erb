@@ -11,7 +11,7 @@
       </tr>
       
       <% @orders.each do |order| %>
-        <% if order.created_at >= Date.today%>
+        <% if order.created_at >= Date.today - 1.days %>
           <tr>
             <td><%= order.id %></td>
             <td><%= order.user.name %></td>
@@ -42,7 +42,7 @@
       </tr>
       
       <% @orders.each do |order| %>
-      <% if order.created_at < Date.today %>
+      <% if order.created_at < Date.today - 1.days %>
       <tr>
         <td><%= order.id %></td>
         <td><%= order.user.name %></td>

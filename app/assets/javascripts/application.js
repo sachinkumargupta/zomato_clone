@@ -19,6 +19,6 @@
 
 
 document.addEventListener("turbolinks:load", function() {
-  addfood();
   rate();
+  addfood();
 });
