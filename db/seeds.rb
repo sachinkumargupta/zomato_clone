@@ -99,15 +99,18 @@ end
 user_count = User.count
 restaurant_count.times do |n|
   5.times do |m|
-    item_array = "#{10*n+1}, #{10*n+2}, #{10*n+3}, #{10*n+4}, #{10*n+5}"
-    item_id = item_array.split(', ')
-    quantity_array = "#{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}, #{rand(1..5)}"
-    quantity = quantity_array.split(', ').map(&:to_i)
+    item_array = "#{10*n+1} #{10*n+2} #{10*n+3} #{10*n+4} #{10*n+5} #{10*n+6} #{10*n+7} #{10*n+8} #{10*n+9} #{10*n+10}"
+    item_array_id = item_array.split(' ')
+    quantity_array = "#{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)} #{rand(0..2)}"
+    quantities = quantity_array.split(' ').map(&:to_i)
     delivery_address = "#{Faker::Address.street_address} #{Faker::Address.city} #{Faker::Address.state} #{Faker::Address.country}"
-    price = FoodItem.find(item_id).pluck(:price)
+    price = FoodItem.find(item_array_id).pluck(:price)
     total = 0
-    5.times do |i|
-      total += quantity[i] * price[i]
+    total_count = quantities.count
+    total_count.times do |i|
+      if quantities[i] != 0 
+        total += quantities[i] * price[i]
+      end
     end
 
     Order.create!( item_array: item_array,

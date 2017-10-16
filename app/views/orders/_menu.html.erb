@@ -1,0 +1,12 @@
+<table class="table table-responsive table-striped">
+  <tr>
+    <th>Item</th>
+    <th>Price</th>
+  </tr>
+  <% @food_items.each do |food| %>
+    <tr>
+      <td><%= food.name %></td>
+      <td><%= food.price %></td>
+    </tr>
+  <% end %>
+</table>

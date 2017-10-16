@@ -7,13 +7,16 @@
       <th>Price</th>
       <th>Total</th>
     </tr>
-    <% @order_array.each do |order| %>
-      <tr>
-        <td><%= order[0] %></td>
-        <td><%= order[1] %></td>
-        <td><%= order[2] %></td>
-        <td><%= order[1] * order[2] %></td>
-      </tr>
+    <% total_count = @quantities.count %>
+    <% total_count.times do |i| %>
+      <% if @quantities[i] != 0 %>  
+        <tr>
+          <td><%= @name[i] %></td>
+          <td><%= @quantities[i] %></td>
+          <td><%= @price[i] %></td>
+          <td><%= @price[i] * @quantities[i] %></td>
+        </tr>
+      <% end %>
     <% end %>
   </table>
 
@@ -25,5 +28,6 @@
   </div>
   <div class="btn-group">
     <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default" %> 
+    <%= link_to 'Edit', [:edit, @restaurant, @order], class: "btn btn-default" %> 
   </div>
 </div>

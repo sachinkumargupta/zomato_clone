@@ -4,7 +4,7 @@
   <%= render 'shared/error_messages', object: @order %>
 
 
-  <div class="">
+  <div class="hidden">
     <div class="form-group">
       <%= f.label :items %>
       <%= f.text_field :item_array, class: "form-control item_array" %>
@@ -23,7 +23,7 @@
         <input type="text" value="<%= food_item.id %>" class="item hidden" >
       </div>
       <div class="col-xs-6">
-        <input type="number" value="0" min="0" onChange="generate_array();" class="form-control quantity">
+        <input type="number" value="0" min="0" onChange="add_food();" class="form-control quantity">
       </div>
     </div>
   <% end %>
@@ -41,32 +41,16 @@
 <% end %>
 
 
-
-
 <script type="text/javascript">
 $(document).ready(function(){
-  generate_array();
+  var quantity_array = $(".quantity_array").val();
+  if(quantity_array){
+    i = 0;
+    quantity_array = quantity_array.split(" ").map(x => parseInt(x));
+    $(".quantity").map(function(){
+      $(this).val(quantity_array[i]);
+      i = i+1;
+    });
+  }
 });
-
-function generate_array(){
-  var item_array = "";
-  var quantity_array = "";
-
-  $(".item").map(function(){
-    item_id = $(this).val();
-    item_array += item_id + " ";
-  });
-  item_array = item_array.trim();
-  $(".item_array").val(item_array);
-  //alert(item_array);
-
-  $(".quantity").map(function(){
-    value = $(this).val();
-    value = parseInt(value);
-    quantity_array += value + " ";
-  });
-  quantity_array = quantity_array.trim();
-  $(".quantity_array").val(quantity_array);
-  //alert(quantity_array);
-}
 </script>

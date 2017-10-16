@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
-  before_action :correct_user_or_admin, only: [:destroy, :show]
+  before_action :find_restaurant
+  before_action :find_food_items, only: [:new, :edit, :create, :update]
+  before_action :find_order, only: [:show, :edit, :update]
+  before_action :correct_user_or_admin, only: [:destroy, :show, :edit, :update]
 
   def index
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    Order.joins(:users)
     if current_user.admin?
       @orders = @restaurant.orders
     else  
@@ -13,28 +14,37 @@ class OrdersController < ApplicationController
   end
   
   def show
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    Order.joins(:food_items)
-    @order = Order.find(params[:id])
-    generate_item_array_quantity_array_price_and_name(@order.item_array, @order.quantity_array)
-    @order_array = @name.zip(@quantities,@price)
+    @name = FoodItem.pluck(:name);
+    @quantities = @order.quantity_array.split(' ').map(&:to_i)
+    @item_array_id = @order.item_array.split(' ')
+    @price = FoodItem.find([@item_array_id]).pluck(:price)
   end
   
   def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @order = Order.new
-    @food_items = @restaurant.food_items.all
   end
   
+  def edit
+  end
+
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @food_items = @restaurant.food_items.all
     @order = @restaurant.orders.new(order_params)
     @order.user_id = current_user.id
-    @order.total = calculate_total(@order.item_array,@order.quantity_array)
+    @order.total = calculate_total(@order.item_array, @order.quantity_array)
 
     if @order.save
       flash[:success] = "Order Placed successfully"
+      redirect_to restaurant_order_path(@restaurant, @order)
+    else
+      render :new
+    end
+  end
+
+  def update
+    @order.update(order_params)
+    @order.total = calculate_total(@order.item_array, @order.quantity_array)
+    if @order.save
+      flash[:success] = "Order Updated successfully"
       redirect_to restaurant_order_path(@restaurant, @order)
     else
       render :new
@@ -52,6 +62,18 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:item_array, :quantity_array, :total ,:delivery_address)
     end
 
+    def find_restaurant
+      @restaurant = Restaurant.find(params[:restaurant_id])
+    end
+
+    def find_order
+      @order = Order.find(params[:id])
+    end
+
+    def find_food_items
+      @food_items = @restaurant.food_items.all
+    end
+
     def correct_user_or_admin
       @restaurant = Restaurant.find(params[:restaurant_id])
       @order = @restaurant.orders.find(params[:id])
@@ -61,19 +83,16 @@ class OrdersController < ApplicationController
       end
     end
 
-    def generate_item_array_quantity_array_price_and_name(item_array, quantity_array)
-      @items_id = item_array.split(', ')
-      @quantities = quantity_array.split(', ').map(&:to_i)
-      @price = FoodItem.find(@items_id).pluck(:price)
-      @name = FoodItem.find(@items_id).pluck(:name)
-    end
-
     def calculate_total(item_array, quantity_array)
-      generate_item_array_quantity_array_price_and_name(item_array, quantity_array)
-      total= 0 
-      total_item = @items_id.count
-      total_item.times do |i|
-        total += @quantities[i] * @price[i]
+      @quantities = quantity_array.split(' ').map(&:to_i)
+      @item_array_id = item_array.split(' ')
+      @price = FoodItem.find([@item_array_id]).pluck(:price)
+      total= 0
+      total_count = @quantities.count
+      total_count.times do |i|
+        if @quantities[i] != 0
+          total += @quantities[i] * @price[i]
+        end
       end
       return total
     end
