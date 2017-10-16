@@ -76,7 +76,7 @@ end
   category_array = %w(Food Restaurant Menu Other)
   category = category_array[rand(0..3)]
   Image.create!( category: category,
-                 rating: rand(1..5)
+                 rating: rand(1..5),
                  restaurant_id: rand(1..Restaurant.count),
                  photo: File.open("app/assets/images/images/#{n%7}.jpg"))
 end
