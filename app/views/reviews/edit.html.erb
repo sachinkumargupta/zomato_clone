@@ -1,7 +1,7 @@
 <% if logged_in? %>
   <h3 class="rating-form-title">Review:</h3>
   <div class="rating-form-body well">
-    <%= form_for([@restaurant, @restaurant.reviews.build]) do |f| %>
+    <%= form_for([@restaurant, @review]) do |f| %>
       <div class="rating-form form-group">
         <%= f.number_field :rating, class: "rating-value hidden", in: 1..5 %>
           <span class="star glyphicon glyphicon-star-empty" data-score="1"></span>

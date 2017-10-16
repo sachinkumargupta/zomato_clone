@@ -23,6 +23,7 @@
       <%= link_to 'Delete', [review.restaurant, review],
                      method: :delete,
                      data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default" %>
+      <%= link_to 'Edit', [:edit, review.restaurant, review], class: "btn btn-sm btn-default" %>
       <% if review.approved == false %>
       <%= link_to "Approve", restaurant_review_approved_path(review.restaurant, review), class: "btn btn-sm btn-default" %>
       <% end %>

@@ -1,7 +1,11 @@
 class ReviewsController < ApplicationController
   before_action :find_restaurant
   before_action :logged_in_user
-  before_action :correct_user_or_admin, only: :destroy
+  before_action :correct_user_or_admin, only: [:destroy, :update]
+
+  def edit
+    @review = Review.find(params[:id])
+  end
 
   def create
     @review = @restaurant.reviews.new(review_params)
@@ -10,7 +14,7 @@ class ReviewsController < ApplicationController
       @review.approved = true
     end
     if @review.save
-      flash[:info] = "Thanks for your Review. It will be shown after being approved by the Admin"
+      flash[:info] = "Thanks for your Review. It will be shown after being approved by the Admin" unless current_user.admin?
     else
       flash[:danger] = "Failed to add the Review. Rating must be present"
     end
@@ -21,6 +25,16 @@ class ReviewsController < ApplicationController
     @review = @restaurant.reviews.find(params[:review_id])
     @review.update(approved: true)
     redirect_to @restaurant
+  end
+
+  def update
+    @review = Review.find(params[:id])
+    if @review.update(review_params)
+      flash[:success] = "Review updated successfully"
+      redirect_to @restaurant
+    else
+      render :edit
+    end
   end
 
   def destroy
