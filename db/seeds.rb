@@ -134,14 +134,23 @@ end
 
 # For Booking
 restaurant_count.times do |n|
-  rand(5..10).times do 
+  10.times do |m| 
     date =  DateTime.now.utc + rand(0..1).months + rand(1..12).hours + rand(1..60).minutes
     duration_array = ["30 min", "1 hour", "1:30 hour", "2 hours"]
-
-    BookTable.create!( date: date,
-                       headcount: rand(1..10),
-                       duration: duration_array[rand(0..3)],
-                       user_id: rand(1..user_count),
-                       restaurant_id: n+1)
+    if m < 6
+      BookTable.create!( date: date,
+                         headcount: rand(1..10),
+                         duration: duration_array[rand(0..3)],
+                         user_id: rand(1..user_count),
+                         restaurant_id: n+1)
+    else
+      book = BookTable.new( date: date,
+                         headcount: rand(1..10),
+                         duration: duration_array[rand(0..3)],
+                         user_id: rand(1..user_count),
+                         restaurant_id: n+1,
+                         created_at: Date.today - rand(1..10).days )
+      book.save(validate: false)
+    end
   end
 end

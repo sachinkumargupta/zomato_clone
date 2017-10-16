@@ -24,7 +24,7 @@
     <p class="grand-total"><strong>Grand Total:</strong> <%= @order.total %> rupees</p>
     <p><strong>Deliver To:</strong> <%= @order.user.name %></p>
     <p><strong>Address:</strong> <%= @order.delivery_address %></p>
-    <p><strong>Order Placed at: </strong><%= @order.created_at.strftime("%I:%M %p %d-%m-%Y") %> UTC</p>
+    <p><strong>Order Placed at: </strong><%= @order.created_at.strftime("%I:%M %p %d-%m-%Y").in_time_zone("Kolkata") %> UTC</p>
   </div>
   <div class="btn-group">
     <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default" %> 

@@ -36,7 +36,7 @@
   
   <div class="form-group submit-food-order">
     <%= f.submit yield(:button_text), class: "btn btn-primary submit-button" %>
-      <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default pull-right" %>
+      <%= link_to 'Back to Order list', restaurant_orders_path(@restaurant), class: "btn btn-default pull-right" %>
   </div>
 <% end %>
 

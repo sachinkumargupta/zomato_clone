@@ -5,9 +5,9 @@ class BookTablesController < ApplicationController
 
   def index
     if current_user.admin?
-      @book_tables = @restaurant.book_tables
+      @book_tables = @restaurant.book_tables.includes(:user)
     else
-      @book_tables = @restaurant.book_tables.where(user_id: current_user.id)
+      @book_tables = @restaurant.book_tables.includes(:user).where(user_id: current_user.id)
     end
   end
   

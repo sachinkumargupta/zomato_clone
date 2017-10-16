@@ -55,6 +55,7 @@ class RestaurantsController < ApplicationController
   end
 
   def filter
+    count = 0
     begin
       if params[:nearby].present? || params[:type].present?
         if params[:nearby].present?
