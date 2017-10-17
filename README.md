@@ -1,7 +1,7 @@
 ## Seed File
 In case of **Google API query limit exceed error**, seed file need to be run again. 
 Please run - **$ rake db:reset**
-Geocoder gem has been used to generate latitude and longitude from Address of the restaurant. During seeding due to large number of request being sent to google api in a very short duration of time, this error might occur. In that case either ** rake db:reset ** can be run again OR the existing restaurant with latitude and longitude column nil should be edit to add new address. Upon submition geocoder should run again.
+Geocoder gem has been used to generate latitude and longitude from Address of the restaurant. During seeding due to large number of request being sent to google api in a very short duration of time, this error might occur. In that case either ** rake db:reset ** can be run again OR after completion of seeding, address of restaurants with latitude and longitude column nil should be changed. Upon submission geocoder will run again and fix generate the latitude and longitude.
 
 ## Geocoder gem 
 1. At times Geocoder gem return unexpected data, to deal with it **begin** and **rescue** has been used in Restaurant controller filter action 
