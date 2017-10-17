@@ -11,11 +11,12 @@ Rails.application.routes.draw do
   resources :users
 
   resources :restaurants do  
-    resources :reviews do  
+    resources :reviews do
       get 'approved'
+      get 'gallery'
     end
     get 'location'
-    resources :images, except: [:show, :new, :edit, :update]
+    resources :images, only: [:index]
     resources :food_items 
     resources :orders
     resources :book_tables, except: [:edit, :update]

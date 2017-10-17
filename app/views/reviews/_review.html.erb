@@ -21,8 +21,10 @@
   <p><span class="label label-primary"><%= review.category %></span></p>
   <% if review.photo.present? %>
     <div class="row">
-      <div class="col-xs-6">
-        <%= image_tag review.photo.url(:medium), class: "img-responsive thumbnail" %>
+      <div class="col-xs-6 col-sm-3">
+      <%= link_to [review.restaurant, review] do %>
+         <%= image_tag review.photo.url(:medium), class: "img-responsive thumbnail" %>
+      <% end %>
       </div>
     </div>
   <% end %>

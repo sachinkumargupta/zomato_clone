@@ -64,23 +64,17 @@ end
     approved = false
   end
   
-  Review.create!( rating: rating, 
+  category_array = %w(Food Restaurant Menu Other)
+  category = category_array[rand(0..3)]
+
+  Review.create!( rating: rating,
+                  category: category, 
                   comment: comment,
                   approved: approved,
                   user_id: user_id,
-                  restaurant_id: restaurant_id)
+                  restaurant_id: restaurant_id,
+                  photo: File.open("app/assets/images/images/#{n%7}.jpg"))
 end
-
-# For Image model
-30.times do |n|
-  category_array = %w(Food Restaurant Menu Other)
-  category = category_array[rand(0..3)]
-  Image.create!( category: category,
-                 rating: rand(1..5),
-                 restaurant_id: rand(1..Restaurant.count),
-                 photo: File.open("app/assets/images/images/#{n%7}.jpg"))
-end
-
 
 # For Food Item
 #food_item_array = ["Aloo baingan masala","Aloo gobi","Aloo ki tikki","Aloo matar","Aloo methi","Aloo shimla mirch","Amriti with rabdi","Amritsari fish","Amritsari kulcha","Biryani","Butter chicken","Chaat","Chana masala","Chapati","Chicken razala","Chicken Tikka","Chole bhature","Daal puri","Dum aloo","Gajar ka halwa","Jalebi","Kofta","Pani puri","Paratha","Samosa"]
