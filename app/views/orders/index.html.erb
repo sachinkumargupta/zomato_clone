@@ -17,7 +17,6 @@
             <td><%= order.user.name %></td>
             <td><%= order.total %></td>
             <td><%= link_to 'Show', [order.restaurant, order] %></td>
-            <td><%= link_to 'Edit', [:edit, order.restaurant, order] %></td>
             <td><%= link_to 'Delete', [order.restaurant, order], method: :delete, data: {confirm: "Are you sure?"} %></td>
           </tr>
         <% end %>

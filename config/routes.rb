@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     get 'location'
     resources :images, only: [:index]
     resources :food_items 
-    resources :orders
+    resources :orders, except: [:edit, :update]
     resources :book_tables, except: [:edit, :update]
     collection do  
       get 'search'
