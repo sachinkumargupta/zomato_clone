@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get "error", to: "restaurants#error"
   resources :users
+  get 'my_orders', to: "restaurants#my_orders"
+  get 'my_bookings', to: "restaurants#my_bookings"
 
-  resources :restaurants do  
+  resources :restaurants do 
+    get 'gallery'
     resources :reviews do
       get 'approved'
       get 'gallery'

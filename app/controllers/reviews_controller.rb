@@ -16,6 +16,7 @@ class ReviewsController < ApplicationController
     @review.user_id = current_user.id
     if current_user.admin?
       @review.approved = true
+      flash[:info] = "Review added successfully!!"
     end
     if @review.save
       flash[:info] = "Thanks for your Review. It will be shown after being approved by the Admin" unless current_user.admin?

@@ -27,6 +27,6 @@
     <p><strong>Order Placed at: </strong><%= @order.created_at.strftime("%I:%M %p %d-%m-%Y").in_time_zone("Kolkata") %> UTC</p>
   </div>
   <div class="btn-group">
-    <%= link_to 'Back', restaurant_orders_path(@restaurant), class: "btn btn-default" %> 
+    <%= link_to 'Back to Food List', restaurant_orders_path(@restaurant), class: "btn btn-default" %> 
   </div>
 </div>

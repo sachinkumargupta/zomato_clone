@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :find_restaurant, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, except: [:index, :show, :location, :search, :filter, :nearby, :error]
-  before_action :admin_user,     except: [:index, :show, :location, :search, :filter, :nearby, :error]
+  before_action :admin_user,     except: [:index, :show, :location, :search, :filter, :nearby, :error, :my_orders, :my_bookings]
 
   def index
     @restaurants = Restaurant.all
@@ -45,6 +45,14 @@ class RestaurantsController < ApplicationController
     @restaurant.destroy
     flash[:success] = "Restaurant was successfully destroyed."
     redirect_to restaurants_url
+  end
+
+  def my_orders
+    @orders = Order.includes(:restaurant).where(user_id: current_user.id)
+  end
+
+  def my_bookings
+    @book_tables = BookTable.includes(:restaurant).where(user_id: current_user.id)
   end
 
   def location
