@@ -1,41 +1,31 @@
 <p><%= link_to 'Back', @restaurant, class: "btn btn-default" %></p>
-<% unless @images.count == 0 %>
+<% unless @reviews.count == 0 %>
   <div class="row">
-    <% @images.each do |image| %>
-      <div class="col-sm-4">
-        <%= image_tag image.photo.url(:medium), class: "img-responsive thumbnail" %>
-        <div class="image-category">
-          <span class="label label-primary"><%= image.category %></span>
-        </div>
-        <% if logged_in? && current_user.admin?%>    
-          <p class="destroy-button-image-index-page">
-            <%= link_to 'Delete', [image.restaurant, image],
-                         method: :delete,
-                         data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default" %>
-          </p>
-        <% end %>
-        <p><% data_score = image.rating %>
-          <% if data_score %>
-            <% for i in 1..5 %>
-              <% if i<= data_score %>
-                <span class="glyphicon glyphicon-star"></span>
-                <% else %>
-                <span class="glyphicon glyphicon-star-empty"></span>
+    <% @reviews.each do |review| %>
+      <% if review.photo.present? %>
+        <div class="col-sm-4">
+          <%= image_tag review.photo.url(:medium), class: "img-responsive thumbnail" %>
+          <div class="image-category">
+            <span class="label label-primary"><%= review.category %></span>
+          </div>
+          <p><% data_score = review.rating %>
+            <% if data_score %>
+              <% for i in 1..5 %>
+                <% if i<= data_score %>
+                  <span class="glyphicon glyphicon-star"></span>
+                  <% else %>
+                  <span class="glyphicon glyphicon-star-empty"></span>
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
-        </p>
-        <br>
-      </div>
+          </p>
+          <br>
+        </div>
+      <% end %>
     <% end %>
   </div>
 <% else %>
   <h5 class="alert alert-info">No Image present yet! Be the first one to add one!! </h5 style="background-color: : green;">
 <% end %>
-
-<br><br>
-
-<%= render 'images/form' %>
-
 
 <br><br><br><br><br><br>

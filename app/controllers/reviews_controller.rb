@@ -3,6 +3,10 @@ class ReviewsController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user_or_admin, only: [:destroy, :update]
 
+  def show
+    @review = Review.find(params[:id])
+  end
+  
   def edit
     @review = Review.find(params[:id])
   end
