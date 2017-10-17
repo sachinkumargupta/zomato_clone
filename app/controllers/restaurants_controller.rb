@@ -73,7 +73,7 @@ class RestaurantsController < ApplicationController
         redirect_to root_url
       end
     rescue
-      flash.now[:info] = "Sorry! Something went wrong, Google API did not respond correctly. Please try again after something"
+      flash.now[:info] = "No Record Found."
       render :search
     end
   end
