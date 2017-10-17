@@ -40,7 +40,7 @@ User.create!(name:  "Sachin Admin",
 end
 
 # For Restaurant 
-6.times do |n|
+4.times do |n|
   name = Faker::Company.name
   type = %w(Fast\ food Dining Barbeque Buffet Cafe Destination\ restaurant Pub)
   restaurant_type = type[rand(0..6)]
@@ -144,12 +144,11 @@ restaurant_count.times do |n|
                          user_id: rand(1..user_count),
                          restaurant_id: n+1)
     else
-      book = BookTable.new( date: date,
+      book = BookTable.new( date: date - rand(50).days,
                          headcount: rand(1..10),
                          duration: duration_array[rand(0..3)],
                          user_id: rand(1..user_count),
-                         restaurant_id: n+1,
-                         created_at: Date.today - rand(1..10).days )
+                         restaurant_id: n+1)
       book.save(validate: false)
     end
   end
